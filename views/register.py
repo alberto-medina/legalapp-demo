@@ -8,7 +8,8 @@ class RegisterScreen(Screen):
         if register_user(
             self.ids.username.text,
             self.ids.email.text,
-            self.ids.password.text
+            self.ids.password.text,
+            self.ids.telefono.text
         ):
             self.manager.current = "login"
 

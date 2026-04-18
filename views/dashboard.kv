@@ -1,6 +1,8 @@
 <DashboardScreen>:
     BoxLayout:
         orientation: "vertical"
+        padding: 20
+        spacing: 10
 
         Label:
             text: "Dashboard"
@@ -12,3 +14,7 @@
         Button:
             text: "Historial"
             on_release: root.ver_historial()
+
+        Button:
+            text: "Mi Perfil"
+            on_release: app.root.current = "perfil"

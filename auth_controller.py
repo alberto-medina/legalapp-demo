@@ -6,14 +6,14 @@ def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
 
-def register_user(username, email, password):
+def register_user(username, email, password, telefono):
     conn = get_connection()
     cursor = conn.cursor()
 
     try:
         cursor.execute(
-            "INSERT INTO users (username, email, password, rol) VALUES (?, ?, ?, ?)",
-            (username, email, hash_password(password), "cliente")
+            "INSERT INTO users (username, email, password, rol, telefono, foto) VALUES (?, ?, ?, ?, ?, ?)",
+            (username, email, hash_password(password), "cliente", telefono, "")
         )
         conn.commit()
         return True

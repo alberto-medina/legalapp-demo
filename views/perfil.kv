@@ -1,0 +1,59 @@
+<PerfilScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 15
+
+        # 🔙 VOLVER
+        Button:
+            text: "← Volver"
+            size_hint_y: None
+            height: 50
+            on_release: root.volver()
+
+        # 🧑 PERFIL TITLE
+        Label:
+            text: "Perfil"
+            size_hint_y: None
+            height: 40
+            font_size: 22
+
+        # 📦 CONTENEDOR
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
+            size_hint_y: None
+            height: self.minimum_height
+
+            Label:
+                text: "Nombre"
+                size_hint_y: None
+                height: 25
+
+            TextInput:
+                id: nombre
+                readonly: True
+                size_hint_y: None
+                height: 40
+
+            Label:
+                text: "Email"
+                size_hint_y: None
+                height: 25
+
+            TextInput:
+                id: email
+                readonly: True
+                size_hint_y: None
+                height: 40
+
+            Label:
+                text: "Teléfono"
+                size_hint_y: None
+                height: 25
+
+            TextInput:
+                id: telefono
+                readonly: True
+                size_hint_y: None
+                height: 40

@@ -14,7 +14,9 @@ def create_tables():
         username TEXT,
         email TEXT UNIQUE,
         password TEXT,
-        rol TEXT
+        rol TEXT,
+        telefono TEXT,
+        foto TEXT
     )
     """)
 
