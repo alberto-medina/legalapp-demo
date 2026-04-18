@@ -1,0 +1,54 @@
+<LoginScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 40
+        spacing: 20
+
+        canvas.before:
+            Color:
+                rgba: 0.07, 0.08, 0.1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "LEGAL APP"
+            font_size: 34
+            bold: True
+            color: 1,1,1,1
+
+        Label:
+            text: "Consultas legales online"
+            font_size: 16
+            color: .7,.7,.7,1
+
+        TextInput:
+            id: email
+            hint_text: "Email"
+            size_hint_y: None
+            height: 50
+            background_color: .15,.15,.18,1
+            foreground_color: 1,1,1,1
+
+        TextInput:
+            id: password
+            hint_text: "Password"
+            password: True
+            size_hint_y: None
+            height: 50
+            background_color: .15,.15,.18,1
+            foreground_color: 1,1,1,1
+
+        Button:
+            text: "Ingresar"
+            size_hint_y: None
+            height: 55
+            background_color: 0.2, 0.6, 1, 1
+            on_release: root.go_to_dashboard()
+
+        Button:
+            text: "Crear cuenta"
+            size_hint_y: None
+            height: 50
+            background_color: 0.3, 0.3, 0.35, 1
+            on_release: root.go_to_register()
