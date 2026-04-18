@@ -1,4 +1,4 @@
-<AbogadosScreen>:
+<PagoScreen>:
     BoxLayout:
         orientation: "vertical"
         padding: 30
@@ -12,14 +12,15 @@
                 size: self.size
 
         Label:
-            text: "Seleccionar Abogado"
+            text: "Confirmar Pago"
             font_size: 26
             color: 1,1,1,1
 
-        Button:
-            text: "Dr. Pérez - Civil"
-            on_release: root.seleccionar_abogado(self.text)
+        Label:
+            text: "Consulta: $5000"
+            color: 1,1,1,1
 
         Button:
-            text: "Dra. Gómez - Penal"
-            on_release: root.seleccionar_abogado(self.text)
+            text: "Pagar Ahora"
+            background_color: 0.2, 0.7, 0.3, 1
+            on_release: root.pagar()

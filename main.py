@@ -8,6 +8,8 @@ from views.dashboard import DashboardScreen
 from views.consulta_tipo import ConsultaTipoScreen
 from views.consulta_especialidad import ConsultaEspecialidadScreen
 from views.abogados import AbogadosScreen
+from views.pago import PagoScreen
+from views.chat import ChatScreen
 
 
 class LegalAppPro(App):
@@ -21,6 +23,8 @@ class LegalAppPro(App):
         Builder.load_file("views/consulta_tipo.kv")
         Builder.load_file("views/consulta_especialidad.kv")
         Builder.load_file("views/abogados.kv")
+        Builder.load_file("views/pago.kv")
+        Builder.load_file("views/chat.kv")
 
         self.sm.add_widget(LoginScreen(name="login"))
         self.sm.add_widget(RegisterScreen(name="register"))
@@ -28,6 +32,8 @@ class LegalAppPro(App):
         self.sm.add_widget(ConsultaTipoScreen(name="tipo"))
         self.sm.add_widget(ConsultaEspecialidadScreen(name="especialidad"))
         self.sm.add_widget(AbogadosScreen(name="abogados"))
+        self.sm.add_widget(PagoScreen(name="pago"))
+        self.sm.add_widget(ChatScreen(name="chat"))
 
         return self.sm
 

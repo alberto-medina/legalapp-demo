@@ -17,6 +17,15 @@ def create_tables():
     )
     """)
 
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS consultas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_email TEXT,
+        abogado TEXT,
+        estado TEXT
+    )
+    """)
+
     conn.commit()
     conn.close()
 

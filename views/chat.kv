@@ -1,0 +1,35 @@
+<ChatScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+
+        canvas.before:
+            Color:
+                rgba: 0.07, 0.08, 0.1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Chat con abogado"
+            size_hint_y: None
+            height: 40
+            color: 1,1,1,1
+
+        ScrollView:
+            BoxLayout:
+                id: chat_box
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+
+        TextInput:
+            hint_text: "Escribí tu mensaje..."
+            size_hint_y: None
+            height: 50
+
+        Button:
+            text: "Enviar"
+            size_hint_y: None
+            height: 50
