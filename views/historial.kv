@@ -1,0 +1,24 @@
+<HistorialScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        spacing: 10
+
+        Button:
+            text: "← Volver"
+            size_hint_y: None
+            height: 50
+            on_release: app.root.current = "dashboard"
+
+        Label:
+            text: "Historial"
+            size_hint_y: None
+            height: 40
+
+        ScrollView:
+            BoxLayout:
+                id: lista
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10

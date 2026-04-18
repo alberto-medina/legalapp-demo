@@ -1,50 +1,24 @@
 <RegisterScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 40
-        spacing: 20
-
-        canvas.before:
-            Color:
-                rgba: 0.07, 0.08, 0.1, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-
-        Label:
-            text: "Crear Cuenta"
-            font_size: 28
-            color: 1,1,1,1
 
         TextInput:
             id: username
             hint_text: "Nombre"
-            background_color: .15,.15,.18,1
-            foreground_color: 1,1,1,1
 
         TextInput:
             id: email
             hint_text: "Email"
-            background_color: .15,.15,.18,1
-            foreground_color: 1,1,1,1
 
         TextInput:
             id: password
             hint_text: "Password"
             password: True
-            background_color: .15,.15,.18,1
-            foreground_color: 1,1,1,1
 
         Button:
             text: "Registrarse"
-            size_hint_y: None
-            height: 50
-            background_color: 0.2, 0.6, 1, 1
             on_release: root.register()
 
         Button:
             text: "Volver"
-            size_hint_y: None
-            height: 50
-            background_color: 0.3, 0.3, 0.35, 1
             on_release: root.go_back()

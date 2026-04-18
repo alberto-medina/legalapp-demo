@@ -4,18 +4,16 @@
         padding: 20
         spacing: 10
 
-        canvas.before:
-            Color:
-                rgba: 0.07, 0.08, 0.1, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        Button:
+            text: "← Volver al Dashboard"
+            size_hint_y: None
+            height: 40
+            on_release: root.volver_dashboard()
 
         Label:
             text: "Chat con abogado"
             size_hint_y: None
             height: 40
-            color: 1,1,1,1
 
         ScrollView:
             BoxLayout:

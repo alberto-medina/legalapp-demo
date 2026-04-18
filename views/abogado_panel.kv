@@ -1,0 +1,29 @@
+<AbogadoPanelScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        spacing: 10
+
+        # 🔙 BOTÓN VOLVER
+        Button:
+            text: "← Volver"
+            size_hint_y: None
+            height: 50
+            on_release: app.root.current = "login"
+
+        # 🧑‍⚖️ TÍTULO
+        Label:
+            text: "Panel Abogado"
+            size_hint_y: None
+            height: 40
+
+        # 📜 LISTA SCROLL
+        ScrollView:
+            size_hint: (1, 1)
+
+            BoxLayout:
+                id: lista
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10

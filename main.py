@@ -10,6 +10,8 @@ from views.consulta_especialidad import ConsultaEspecialidadScreen
 from views.abogados import AbogadosScreen
 from views.pago import PagoScreen
 from views.chat import ChatScreen
+from views.historial import HistorialScreen
+from views.abogado_panel import AbogadoPanelScreen
 
 
 class LegalAppPro(App):
@@ -25,6 +27,8 @@ class LegalAppPro(App):
         Builder.load_file("views/abogados.kv")
         Builder.load_file("views/pago.kv")
         Builder.load_file("views/chat.kv")
+        Builder.load_file("views/historial.kv")
+        Builder.load_file("views/abogado_panel.kv")
 
         self.sm.add_widget(LoginScreen(name="login"))
         self.sm.add_widget(RegisterScreen(name="register"))
@@ -34,6 +38,8 @@ class LegalAppPro(App):
         self.sm.add_widget(AbogadosScreen(name="abogados"))
         self.sm.add_widget(PagoScreen(name="pago"))
         self.sm.add_widget(ChatScreen(name="chat"))
+        self.sm.add_widget(HistorialScreen(name="historial"))
+        self.sm.add_widget(AbogadoPanelScreen(name="abogado_panel"))
 
         return self.sm
 

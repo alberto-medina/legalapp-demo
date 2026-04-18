@@ -13,7 +13,8 @@ def create_tables():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT,
         email TEXT UNIQUE,
-        password TEXT
+        password TEXT,
+        rol TEXT
     )
     """)
 

@@ -12,8 +12,8 @@ def register_user(username, email, password):
 
     try:
         cursor.execute(
-            "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-            (username, email, hash_password(password))
+            "INSERT INTO users (username, email, password, rol) VALUES (?, ?, ?, ?)",
+            (username, email, hash_password(password), "cliente")
         )
         conn.commit()
         return True
@@ -27,12 +27,12 @@ def login_user(email, password):
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT password FROM users WHERE email=?", (email,))
+    cursor.execute("SELECT password, rol FROM users WHERE email=?", (email,))
     result = cursor.fetchone()
 
     conn.close()
 
-    if result:
-        return result[0] == hash_password(password)
+    if result and result[0] == hash_password(password):
+        return result[1]
 
-    return False
+    return None

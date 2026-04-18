@@ -8,8 +8,12 @@ class LoginScreen(Screen):
         email = self.ids.email.text
         password = self.ids.password.text
 
-        if login_user(email, password):
+        rol = login_user(email, password)
+
+        if rol == "cliente":
             self.manager.current = "dashboard"
+        elif rol == "abogado":
+            self.manager.current = "abogado_panel"
         else:
             print("Login incorrecto")
 
