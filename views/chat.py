@@ -1,50 +1,36 @@
 from kivy.uix.screenmanager import Screen
-from kivy.uix.label import Label
-from kivy.clock import Clock
+import session
 
 
 class ChatScreen(Screen):
 
     def on_enter(self):
-        # limpiar chat al entrar (podés cambiar esto luego si querés persistencia)
-        self.ids.chat_box.clear_widgets()
+        print("ENTRANDO A CHAT:", session.consulta_id)
 
-        # mensaje inicial
-        self.add_message("Sistema", "La consulta fue habilitada. Podés comenzar a chatear.")
-
-    def add_message(self, autor, mensaje):
-        texto = f"[b]{autor}:[/b] {mensaje}"
-
-        label = Label(
-            text=texto,
-            markup=True,
-            size_hint_y=None,
-            height=30,
-            color=(1, 1, 1, 1),
-            halign="left",
-            valign="middle"
-        )
-
-        # ajustar ancho del texto
-        label.bind(size=lambda instance, value: setattr(instance, 'text_size', (instance.width, None)))
-
-        self.ids.chat_box.add_widget(label)
-
-        # hacer scroll automático hacia abajo
-        Clock.schedule_once(lambda dt: self.scroll_bottom(), 0.1)
-
-    def scroll_bottom(self):
-        self.ids.scroll.scroll_y = 0
+        if session.consulta_id:
+            self.ids.chat_box.text = f"Chat consulta ID: {session.consulta_id}"
+        else:
+            self.ids.chat_box.text = "Error: sin consulta"
 
     def enviar(self):
-        mensaje = self.ids.input.text.strip()
+        mensaje = self.ids.input.text
 
-        if mensaje:
-            self.add_message("Vos", mensaje)
-            self.ids.input.text = ""
+        if mensaje.strip() == "":
+            return
 
-            # respuesta simulada del abogado
-            Clock.schedule_once(lambda dt: self.add_message("Abogado", "Recibido, estoy revisando tu caso."), 1)
+        self.ids.chat_box.text += f"\nYo: {mensaje}"
+        self.ids.input.text = ""
 
     def volver(self):
-        self.manager.current = "dashboard"
+        print("VOLVER DESDE CHAT")
+
+        # 🔒 PROTEGIDO (NO CRASHEA MÁS)
+        if session.current_user:
+            try:
+                if session.current_user[4] == "abogado":
+                    self.manager.current = "abogado_panel"
+                    return
+            except:
+                pass
+
+        self.manager.current = "historial"

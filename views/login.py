@@ -12,21 +12,28 @@ class LoginScreen(Screen):
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute(
-            "SELECT id, username, email, rol FROM users WHERE email=? AND password=?",
-            (email, password)
-        )
+        # 🔥 TRAEMOS TODAS LAS COLUMNAS (CLAVE)
+        cursor.execute("""
+            SELECT id, username, email, password, rol, telefono, foto
+            FROM users
+            WHERE email=? AND password=?
+        """, (email, password))
 
         user = cursor.fetchone()
         conn.close()
 
         if user:
             session.current_user = user
+            print("LOGIN OK:", user)
 
-            # 🔥 REDIRECCIÓN POR ROL
-            if user[3] == "abogado":
-                self.manager.current = "abogado_panel"
-            else:
+            # 🔥 REDIRECCIÓN SEGÚN ROL
+            try:
+                if user[4] == "abogado":
+                    self.manager.current = "abogado_panel"
+                else:
+                    self.manager.current = "dashboard"
+            except:
                 self.manager.current = "dashboard"
+
         else:
             print("Login incorrecto")
