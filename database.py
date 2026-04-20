@@ -16,9 +16,7 @@ def create_tables():
         password TEXT,
         rol TEXT,
         telefono TEXT,
-        foto TEXT,
-        especialidad TEXT,
-        descripcion TEXT
+        foto TEXT
     )
     """)
 
@@ -31,27 +29,18 @@ def create_tables():
     )
     """)
 
-    conn.commit()
-    conn.close()
-
-
-def update_schema():
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    try:
-        cursor.execute("ALTER TABLE users ADD COLUMN especialidad TEXT")
-    except:
-        pass
-
-    try:
-        cursor.execute("ALTER TABLE users ADD COLUMN descripcion TEXT")
-    except:
-        pass
+    # 🔥 NUEVA TABLA CHAT
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS mensajes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        consulta_id INTEGER,
+        emisor TEXT,
+        mensaje TEXT
+    )
+    """)
 
     conn.commit()
     conn.close()
 
 
 create_tables()
-update_schema()

@@ -5,42 +5,29 @@ import session
 
 class PagoScreen(Screen):
 
-    def on_enter(self):
-        servicio = getattr(session, "tipo_servicio", "")
-
-        if servicio == "chat":
-            precio = 1000
-        elif servicio == "video":
-            precio = 3000
-        elif servicio == "urgente":
-            precio = 5000
-        else:
-            precio = 0
-
-        self.ids.precio.text = f"Total a pagar: ${precio}"
-
     def pagar(self):
-        user = session.current_user
-        abogado = getattr(session, "abogado", "")
-
         conn = get_connection()
         cursor = conn.cursor()
+
+        abogado = (session.abogado_seleccionado or "").strip()
+
+        print("ABOGADO GUARDADO:", abogado)
 
         cursor.execute("""
             INSERT INTO consultas (user_email, abogado, estado)
             VALUES (?, ?, ?)
         """, (
-            user[2],
+            session.current_user[2],
             abogado,
             "pagado"
         ))
 
+        consulta_id = cursor.lastrowid
+        session.consulta_id = consulta_id
+
         conn.commit()
         conn.close()
 
-        print("Pago registrado")
+        print("PAGO OK - CONSULTA ID:", consulta_id)
 
         self.manager.current = "chat"
-
-    def volver(self):
-        self.manager.current = "abogados"

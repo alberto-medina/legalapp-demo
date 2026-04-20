@@ -12,27 +12,27 @@ class AbogadosScreen(Screen):
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT username FROM users WHERE rol='abogado'")
-        abogados = cursor.fetchall()
+        cursor.execute("""
+            SELECT username, email
+            FROM users
+            WHERE rol='abogado'
+        """)
 
+        abogados = cursor.fetchall()
         conn.close()
 
-        for ab in abogados:
-            nombre = ab[0]
-
+        for nombre, email in abogados:
             btn = Button(
-                text=nombre,
+                text=f"{nombre}",
                 size_hint_y=None,
                 height=50
             )
 
-            btn.bind(on_release=lambda x, n=nombre: self.seleccionar(n))
-
+            btn.bind(on_release=lambda x, e=email: self.seleccionar(e))
             self.ids.lista.add_widget(btn)
 
-    def seleccionar(self, abogado):
-        session.abogado = abogado
-        self.manager.current = "pago"
+    def seleccionar(self, email):
+        print("ABOGADO SELECCIONADO:", email)
 
-    def volver(self):
-        self.manager.current = "especialidad"
+        session.abogado_seleccionado = email
+        self.manager.current = "pago"

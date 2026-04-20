@@ -17,10 +17,7 @@ class AbogadoPanelScreen(Screen):
         if not session.current_user:
             return
 
-        try:
-            abogado_nombre = session.current_user[1]
-        except:
-            return
+        abogado_email = session.current_user[2]
 
         conn = get_connection()
         cursor = conn.cursor()
@@ -29,14 +26,15 @@ class AbogadoPanelScreen(Screen):
             SELECT id, user_email, abogado, estado
             FROM consultas
             WHERE abogado=?
-        """, (abogado_nombre,))
+            ORDER BY id DESC
+        """, (abogado_email,))
 
         consultas = cursor.fetchall()
         conn.close()
 
         if not consultas:
             self.ids.lista.add_widget(
-                Label(text="No hay consultas aún", size_hint_y=None, height=40)
+                Label(text="No hay consultas", size_hint_y=None, height=40)
             )
             return
 
@@ -52,6 +50,7 @@ class AbogadoPanelScreen(Screen):
                 spacing=5
             )
 
+            box.add_widget(Label(text=f"Consulta ID: {consulta_id}"))
             box.add_widget(Label(text=f"Cliente: {cliente}"))
             box.add_widget(Label(text=f"Estado: {estado}"))
 
@@ -63,7 +62,7 @@ class AbogadoPanelScreen(Screen):
             self.ids.lista.add_widget(box)
 
     def abrir_chat(self, consulta_id):
-        print("ABRIENDO CHAT:", consulta_id)
+        print("ABOGADO ABRE:", consulta_id)
 
         session.consulta_id = consulta_id
         self.manager.current = "chat"

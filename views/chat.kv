@@ -10,18 +10,25 @@
             height: 50
             on_release: root.volver()
 
-        Label:
-            id: chat_box
-            text: "Chat"
+        ScrollView:
             size_hint_y: 0.8
 
-        TextInput:
-            id: input
-            size_hint_y: None
-            height: 50
+            Label:
+                id: chat_box
+                text: ""
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
 
-        Button:
-            text: "Enviar"
+        BoxLayout:
             size_hint_y: None
             height: 50
-            on_release: root.enviar()
+            spacing: 5
+
+            TextInput:
+                id: input
+
+            Button:
+                text: "Enviar"
+                size_hint_x: 0.3
+                on_release: root.enviar()
