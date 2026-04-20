@@ -16,7 +16,9 @@ def create_tables():
         password TEXT,
         rol TEXT,
         telefono TEXT,
-        foto TEXT
+        foto TEXT,
+        especialidad TEXT,
+        descripcion TEXT
     )
     """)
 
@@ -33,4 +35,23 @@ def create_tables():
     conn.close()
 
 
+def update_schema():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("ALTER TABLE users ADD COLUMN especialidad TEXT")
+    except:
+        pass
+
+    try:
+        cursor.execute("ALTER TABLE users ADD COLUMN descripcion TEXT")
+    except:
+        pass
+
+    conn.commit()
+    conn.close()
+
+
 create_tables()
+update_schema()

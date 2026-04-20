@@ -1,11 +1,11 @@
 from kivy.uix.screenmanager import Screen
+import session
 
 
 class ConsultaEspecialidadScreen(Screen):
 
-    tipo = ""
-
-    def seleccionar(self, especialidad):
+    def seleccionar(self, area):
+        session.area_legal = area
         self.manager.current = "abogados"
 
     def volver(self):

@@ -2,25 +2,31 @@
     BoxLayout:
         orientation: "vertical"
         padding: 20
-        spacing: 20
-
-        BoxLayout:
-            size_hint_y: None
-            height: 60
-
-            Button:
-                text: "←"
-                size_hint_x: None
-                width: 50
-                on_release: root.volver()
-
-            Label:
-                text: "Especialidad"
+        spacing: 15
 
         Button:
-            text: "Familia"
-            on_release: root.seleccionar("Familia")
+            text: "← Volver"
+            size_hint_y: None
+            height: 50
+            on_release: root.volver()
+
+        Label:
+            text: "Área legal"
+            size_hint_y: None
+            height: 40
+
+        Button:
+            text: "Civil"
+            on_release: root.seleccionar("Civil")
+
+        Button:
+            text: "Penal"
+            on_release: root.seleccionar("Penal")
 
         Button:
             text: "Laboral"
             on_release: root.seleccionar("Laboral")
+
+        Button:
+            text: "Familia"
+            on_release: root.seleccionar("Familia")

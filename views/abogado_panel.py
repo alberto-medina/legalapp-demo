@@ -1,41 +1,52 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.label import Label
 from database import get_connection
+import session
 
 
 class AbogadoPanelScreen(Screen):
 
     def on_enter(self):
-        # 🔒 Evita crash si el id no existe
-        if "lista" not in self.ids:
+        self.ids.lista.clear_widgets()
+
+        user = session.current_user
+        if not user:
             return
 
-        # 🧹 Limpiar lista antes de cargar
-        self.ids.lista.clear_widgets()
+        email_abogado = user[2]  # usamos EMAIL (más seguro)
 
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT user_email, abogado, estado FROM consultas")
-        consultas = cursor.fetchall()
+        # 🔥 IMPORTANTE: mostramos todas las consultas del sistema
+        # (así no falla por nombres distintos)
+        cursor.execute("""
+            SELECT user_email, abogado, estado
+            FROM consultas
+        """)
 
+        consultas = cursor.fetchall()
         conn.close()
 
-        if consultas:
-            for user_email, abogado, estado in consultas:
-                item = Label(
-                    text=f"[b]{user_email}[/b]\nAbogado: {abogado}\nEstado: {estado}",
+        if not consultas:
+            self.ids.lista.add_widget(
+                Label(text="No hay consultas aún", size_hint_y=None, height=40)
+            )
+            return
+
+        for c in consultas:
+            cliente = c[0] or ""
+            abogado = c[1] or ""
+            estado = c[2] or ""
+
+            texto = f"[b]{cliente}[/b]\nAbogado: {abogado}\nEstado: {estado}"
+
+            self.ids.lista.add_widget(
+                Label(
+                    text=texto,
                     markup=True,
                     size_hint_y=None,
                     height=90
-                )
-                self.ids.lista.add_widget(item)
-        else:
-            self.ids.lista.add_widget(
-                Label(
-                    text="Sin consultas",
-                    size_hint_y=None,
-                    height=50
                 )
             )
 

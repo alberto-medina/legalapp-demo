@@ -1,55 +1,64 @@
 <PerfilScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 20
-        spacing: 20
+        padding: 15
+        spacing: 10
 
-        canvas.before:
-            Color:
-                rgba: 0.05, 0.06, 0.08, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-
-        # HEADER
-        BoxLayout:
+        Button:
+            text: "← Volver"
             size_hint_y: None
-            height: 60
+            height: 50
+            on_release: root.volver()
 
-            Button:
-                text: "←"
-                size_hint_x: None
-                width: 50
-                on_release: root.volver()
-
-            Label:
-                text: "Perfil"
-                color: 1,1,1,1
-
-        # DATOS
-        BoxLayout:
-            orientation: "vertical"
-            spacing: 10
+        Label:
+            text: "Perfil"
             size_hint_y: None
-            height: 200
+            height: 40
 
-            TextInput:
-                id: nombre
-                hint_text: "Nombre"
-                readonly: True
-                size_hint_y: None
-                height: 40
+        Image:
+            id: img
+            source: ""
+            size_hint_y: None
+            height: 120
 
-            TextInput:
-                id: email
-                hint_text: "Email"
-                readonly: True
-                size_hint_y: None
-                height: 40
+        TextInput:
+            id: foto
+            hint_text: "Ruta de imagen (ej: foto.jpg)"
+            size_hint_y: None
+            height: 50
 
-            TextInput:
-                id: telefono
-                hint_text: "Teléfono"
-                readonly: True
-                size_hint_y: None
-                height: 40
+        TextInput:
+            id: nombre
+            hint_text: "Nombre"
+            size_hint_y: None
+            height: 50
+
+        TextInput:
+            id: email
+            readonly: True
+            size_hint_y: None
+            height: 50
+
+        TextInput:
+            id: telefono
+            hint_text: "Teléfono"
+            size_hint_y: None
+            height: 50
+
+        TextInput:
+            id: especialidad
+            hint_text: "Especialidad (abogado)"
+            size_hint_y: None
+            height: 50
+
+        TextInput:
+            id: descripcion
+            hint_text: "Descripción"
+            size_hint_y: None
+            height: 80
+
+        Button:
+            text: "Guardar cambios"
+            size_hint_y: None
+            height: 50
+            on_release: root.guardar()

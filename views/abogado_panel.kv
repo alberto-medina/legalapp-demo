@@ -4,11 +4,18 @@
         padding: 10
         spacing: 10
 
-        Button:
-            text: "← Volver"
+        BoxLayout:
             size_hint_y: None
             height: 50
-            on_release: root.volver()
+            spacing: 10
+
+            Button:
+                text: "← Salir"
+                on_release: root.volver()
+
+            Button:
+                text: "Perfil"
+                on_release: app.root.current = "perfil"
 
         Label:
             text: "Panel Abogado"
@@ -16,11 +23,8 @@
             height: 40
 
         ScrollView:
-            do_scroll_x: False
-
             BoxLayout:
                 id: lista
                 orientation: "vertical"
                 size_hint_y: None
                 height: self.minimum_height
-                spacing: 10

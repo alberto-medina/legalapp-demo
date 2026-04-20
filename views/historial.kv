@@ -1,39 +1,23 @@
 <HistorialScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 20
-        spacing: 20
+        padding: 10
+        spacing: 10
 
-        canvas.before:
-            Color:
-                rgba: 0.05, 0.06, 0.08, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-
-        # HEADER
-        BoxLayout:
+        Button:
+            text: "← Volver"
             size_hint_y: None
-            height: 60
+            height: 50
+            on_release: root.volver()
 
-            Button:
-                text: "←"
-                size_hint_x: None
-                width: 50
-                background_color: 0.2,0.2,0.25,1
-                on_release: root.volver()
+        Label:
+            text: "Historial"
+            size_hint_y: None
+            height: 40
 
-            Label:
-                text: "Historial"
-                font_size: 20
-                bold: True
-                color: 1,1,1,1
-
-        # LISTA
         ScrollView:
             BoxLayout:
                 id: lista
                 orientation: "vertical"
                 size_hint_y: None
                 height: self.minimum_height
-                spacing: 15

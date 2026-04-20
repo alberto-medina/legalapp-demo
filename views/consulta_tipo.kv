@@ -2,25 +2,27 @@
     BoxLayout:
         orientation: "vertical"
         padding: 20
-        spacing: 20
+        spacing: 15
 
-        BoxLayout:
+        Button:
+            text: "← Volver"
             size_hint_y: None
-            height: 60
+            height: 50
+            on_release: root.volver()
 
-            Button:
-                text: "←"
-                size_hint_x: None
-                width: 50
-                on_release: root.volver()
-
-            Label:
-                text: "Tipo de Consulta"
+        Label:
+            text: "Tipo de servicio"
+            size_hint_y: None
+            height: 40
 
         Button:
-            text: "Civil"
-            on_release: root.seleccionar("Civil")
+            text: "Chat"
+            on_release: root.seleccionar("chat")
 
         Button:
-            text: "Penal"
-            on_release: root.seleccionar("Penal")
+            text: "Videollamada"
+            on_release: root.seleccionar("video")
+
+        Button:
+            text: "Urgente"
+            on_release: root.seleccionar("urgente")
