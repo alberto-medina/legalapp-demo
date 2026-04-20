@@ -1,25 +1,35 @@
 <AbogadosScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 30
+        padding: 20
         spacing: 20
 
         canvas.before:
             Color:
-                rgba: 0.07, 0.08, 0.1, 1
+                rgba: 0.05, 0.06, 0.08, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
-        Label:
-            text: "Seleccionar Abogado"
-            font_size: 26
-            color: 1,1,1,1
+        # HEADER
+        BoxLayout:
+            size_hint_y: None
+            height: 60
 
-        Button:
-            text: "Dr. Pérez - Civil"
-            on_release: root.seleccionar_abogado(self.text)
+            Button:
+                text: "←"
+                size_hint_x: None
+                width: 50
+                on_release: root.volver()
 
-        Button:
-            text: "Dra. Gómez - Penal"
-            on_release: root.seleccionar_abogado(self.text)
+            Label:
+                text: "Seleccionar Abogado"
+
+        # LISTA (CLAVE)
+        ScrollView:
+            BoxLayout:
+                id: lista
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10

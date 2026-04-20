@@ -2,58 +2,54 @@
     BoxLayout:
         orientation: "vertical"
         padding: 20
-        spacing: 15
+        spacing: 20
 
-        # 🔙 VOLVER
-        Button:
-            text: "← Volver"
+        canvas.before:
+            Color:
+                rgba: 0.05, 0.06, 0.08, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # HEADER
+        BoxLayout:
             size_hint_y: None
-            height: 50
-            on_release: root.volver()
+            height: 60
 
-        # 🧑 PERFIL TITLE
-        Label:
-            text: "Perfil"
-            size_hint_y: None
-            height: 40
-            font_size: 22
+            Button:
+                text: "←"
+                size_hint_x: None
+                width: 50
+                on_release: root.volver()
 
-        # 📦 CONTENEDOR
+            Label:
+                text: "Perfil"
+                color: 1,1,1,1
+
+        # DATOS
         BoxLayout:
             orientation: "vertical"
             spacing: 10
             size_hint_y: None
-            height: self.minimum_height
-
-            Label:
-                text: "Nombre"
-                size_hint_y: None
-                height: 25
+            height: 200
 
             TextInput:
                 id: nombre
+                hint_text: "Nombre"
                 readonly: True
                 size_hint_y: None
                 height: 40
-
-            Label:
-                text: "Email"
-                size_hint_y: None
-                height: 25
 
             TextInput:
                 id: email
+                hint_text: "Email"
                 readonly: True
                 size_hint_y: None
                 height: 40
 
-            Label:
-                text: "Teléfono"
-                size_hint_y: None
-                height: 25
-
             TextInput:
                 id: telefono
+                hint_text: "Teléfono"
                 readonly: True
                 size_hint_y: None
                 height: 40

@@ -3,5 +3,10 @@ from kivy.uix.screenmanager import Screen
 
 class ConsultaEspecialidadScreen(Screen):
 
-    def seleccionar_especialidad(self):
+    tipo = ""
+
+    def seleccionar(self, especialidad):
         self.manager.current = "abogados"
+
+    def volver(self):
+        self.manager.current = "tipo"

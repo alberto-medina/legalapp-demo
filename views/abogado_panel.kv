@@ -4,22 +4,19 @@
         padding: 10
         spacing: 10
 
-        # 🔙 BOTÓN VOLVER
         Button:
             text: "← Volver"
             size_hint_y: None
             height: 50
-            on_release: app.root.current = "login"
+            on_release: root.volver()
 
-        # 🧑‍⚖️ TÍTULO
         Label:
             text: "Panel Abogado"
             size_hint_y: None
             height: 40
 
-        # 📜 LISTA SCROLL
         ScrollView:
-            size_hint: (1, 1)
+            do_scroll_x: False
 
             BoxLayout:
                 id: lista

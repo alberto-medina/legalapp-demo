@@ -1,21 +1,32 @@
 from kivy.uix.screenmanager import Screen
-from auth_controller import login_user
+from database import get_connection
+import session
 
 
 class LoginScreen(Screen):
 
-    def go_to_dashboard(self):
+    def login(self):
         email = self.ids.email.text
         password = self.ids.password.text
 
-        rol = login_user(email, password)
+        conn = get_connection()
+        cursor = conn.cursor()
 
-        if rol == "cliente":
-            self.manager.current = "dashboard"
-        elif rol == "abogado":
-            self.manager.current = "abogado_panel"
+        cursor.execute(
+            "SELECT id, username, email, rol FROM users WHERE email=? AND password=?",
+            (email, password)
+        )
+
+        user = cursor.fetchone()
+        conn.close()
+
+        if user:
+            session.current_user = user
+
+            # 🔥 REDIRECCIÓN POR ROL
+            if user[3] == "abogado":
+                self.manager.current = "abogado_panel"
+            else:
+                self.manager.current = "dashboard"
         else:
             print("Login incorrecto")
-
-    def go_to_register(self):
-        self.manager.current = "register"

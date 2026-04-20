@@ -1,33 +1,62 @@
 <ChatScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 20
+
+        canvas.before:
+            Color:
+                rgba: 0.05, 0.06, 0.08, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        padding: 15
         spacing: 10
 
-        Button:
-            text: "← Volver al Dashboard"
+        # HEADER
+        BoxLayout:
             size_hint_y: None
-            height: 40
-            on_release: root.volver_dashboard()
+            height: 50
+            spacing: 10
 
-        Label:
-            text: "Chat con abogado"
-            size_hint_y: None
-            height: 40
+            Button:
+                text: "←"
+                size_hint_x: None
+                width: 50
+                background_color: 0.2,0.2,0.25,1
+                on_release: root.volver()
 
+            Label:
+                text: "Chat con abogado"
+                color: 1,1,1,1
+                font_size: 18
+
+        # MENSAJES
         ScrollView:
+            id: scroll
+
             BoxLayout:
                 id: chat_box
                 orientation: "vertical"
                 size_hint_y: None
                 height: self.minimum_height
+                spacing: 8
 
-        TextInput:
-            hint_text: "Escribí tu mensaje..."
+        # INPUT
+        BoxLayout:
             size_hint_y: None
             height: 50
+            spacing: 10
 
-        Button:
-            text: "Enviar"
-            size_hint_y: None
-            height: 50
+            TextInput:
+                id: input
+                hint_text: "Escribí tu mensaje..."
+                multiline: False
+                background_color: 0.2,0.2,0.25,1
+                foreground_color: 1,1,1,1
+
+            Button:
+                text: "Enviar"
+                size_hint_x: None
+                width: 100
+                background_color: 0.2, 0.6, 1, 1
+                on_release: root.enviar()
