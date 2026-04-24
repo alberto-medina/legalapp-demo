@@ -1,29 +1,93 @@
 <AbogadoPanelScreen>:
+
     BoxLayout:
         orientation: "vertical"
-        padding: 10
-        spacing: 10
+        padding: 15
+        spacing: 15
 
+        canvas.before:
+            Color:
+                rgba: 0.07, 0.07, 0.12, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # HEADER
         BoxLayout:
             size_hint_y: None
             height: 50
 
-            Button:
-                text: "← Salir"
-                on_release: root.volver()
+            Label:
+                text: "Panel Abogado"
+                font_size: 20
+                bold: True
+                color: 1,1,1,1
 
             Button:
                 text: "Perfil"
-                on_release: app.root.current = "perfil"
+                size_hint_x: 0.3
+                on_release: root.ir_perfil()
 
-        Label:
-            text: "Panel Abogado"
+            Button:
+                text: "Salir"
+                size_hint_x: 0.3
+                on_release: root.logout()
+
+        # CARDS
+        BoxLayout:
             size_hint_y: None
-            height: 40
+            height: 90
+            spacing: 10
 
-        ScrollView:
+            # CONSULTAS
             BoxLayout:
-                id: lista
                 orientation: "vertical"
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: 0.1, 0.1, 0.2, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+
+                Label:
+                    text: "Consultas"
+                    color: 1,1,1,1
+
+                Label:
+                    id: lbl_consultas
+                    text: "0"
+                    font_size: 20
+                    color: 0,1,1,1
+
+            # GANANCIA
+            BoxLayout:
+                orientation: "vertical"
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: 0.1, 0.1, 0.2, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+
+                Label:
+                    text: "Ganancia"
+                    color: 1,1,1,1
+
+                Label:
+                    id: lbl_ganancia
+                    text: "$0"
+                    font_size: 20
+                    color: 0,1,0,1
+
+        # LISTA
+        ScrollView:
+            GridLayout:
+                id: lista_consultas
+                cols: 1
+                spacing: 10
                 size_hint_y: None
                 height: self.minimum_height

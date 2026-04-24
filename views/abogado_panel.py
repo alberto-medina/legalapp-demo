@@ -1,71 +1,70 @@
 from kivy.uix.screenmanager import Screen
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
 from kivy.uix.button import Button
-from database import get_connection
+import sqlite3
 import session
 
 
 class AbogadoPanelScreen(Screen):
 
     def on_enter(self):
-        self.cargar_consultas()
+        self.cargar_datos()
 
-    def cargar_consultas(self):
-        self.ids.lista.clear_widgets()
+    def cargar_datos(self):
+        self.ids.lista_consultas.clear_widgets()
 
-        if not session.current_user:
+        user = session.current_user
+        if not user:
             return
 
-        abogado_email = session.current_user[2]
+        email_abogado = user[2]
 
-        conn = get_connection()
+        conn = sqlite3.connect("legal_app.db")
         cursor = conn.cursor()
 
+        cursor.execute("SELECT COUNT(*) FROM consultas WHERE abogado = ?", (email_abogado,))
+        total = cursor.fetchone()[0]
+
+        ganancia = total * 1000
+
+        self.ids.lbl_consultas.text = str(total)
+        self.ids.lbl_ganancia.text = f"${ganancia}"
+
         cursor.execute("""
-            SELECT id, user_email, abogado, estado
+            SELECT id, user_email, estado
             FROM consultas
-            WHERE abogado=?
+            WHERE abogado = ?
             ORDER BY id DESC
-        """, (abogado_email,))
+        """, (email_abogado,))
 
         consultas = cursor.fetchall()
         conn.close()
 
         if not consultas:
-            self.ids.lista.add_widget(
-                Label(text="No hay consultas", size_hint_y=None, height=40)
-            )
+            from kivy.uix.label import Label
+            self.ids.lista_consultas.add_widget(Label(text="No hay consultas"))
             return
 
-        for c in consultas:
-            consulta_id = c[0]
-            cliente = c[1]
-            estado = c[3]
+        for consulta_id, cliente, estado in consultas:
 
-            box = BoxLayout(
-                orientation="vertical",
+            btn = Button(
+                text=f"{cliente}\nEstado: {estado}",
                 size_hint_y=None,
-                height=120,
-                spacing=5
+                height=100
             )
 
-            box.add_widget(Label(text=f"Consulta ID: {consulta_id}"))
-            box.add_widget(Label(text=f"Cliente: {cliente}"))
-            box.add_widget(Label(text=f"Estado: {estado}"))
-
-            btn = Button(text="Abrir Chat", size_hint_y=None, height=40)
             btn.bind(on_release=lambda x, cid=consulta_id: self.abrir_chat(cid))
 
-            box.add_widget(btn)
-
-            self.ids.lista.add_widget(box)
+            self.ids.lista_consultas.add_widget(btn)
 
     def abrir_chat(self, consulta_id):
-        print("ABOGADO ABRE:", consulta_id)
+        print("ABOGADO ABRE CHAT:", consulta_id)
 
-        session.consulta_id = consulta_id
+        session.current_consulta_id = consulta_id
         self.manager.current = "chat"
 
-    def volver(self):
+    def ir_perfil(self):
+        self.manager.current = "perfil"
+
+    def logout(self):
+        session.current_user = None
         self.manager.current = "login"

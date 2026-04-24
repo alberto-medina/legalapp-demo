@@ -1,28 +1,46 @@
 <ConsultaTipoScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 20
-        spacing: 15
 
-        Button:
-            text: "← Volver"
-            size_hint_y: None
-            height: 50
-            on_release: root.volver()
+        canvas.before:
+            Color:
+                rgba: 0.10, 0.12, 0.20, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
         Label:
             text: "Tipo de servicio"
             size_hint_y: None
-            height: 40
+            height: 60
+            color: 1,1,1,1
+            bold: True
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 20
+            spacing: 15
+
+            Button:
+                text: "Chat"
+                size_hint_y: None
+                height: 60
+                on_release: root.seleccionar("chat")
+
+            Button:
+                text: "Videollamada"
+                size_hint_y: None
+                height: 60
+                on_release: root.seleccionar("video")
+
+            Button:
+                text: "Urgente"
+                size_hint_y: None
+                height: 60
+                on_release: root.seleccionar("urgente")
 
         Button:
-            text: "Chat"
-            on_release: root.seleccionar("chat")
-
-        Button:
-            text: "Videollamada"
-            on_release: root.seleccionar("video")
-
-        Button:
-            text: "Urgente"
-            on_release: root.seleccionar("urgente")
+            text: "Volver"
+            size_hint_y: None
+            height: 50
+            on_release: root.volver()

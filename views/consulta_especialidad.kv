@@ -1,32 +1,129 @@
+#:import ButtonBehavior kivy.uix.behaviors.ButtonBehavior
+
+<CustomCard@ButtonBehavior+BoxLayout>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: 110
+    padding: 10
+    spacing: 10
+
+    canvas.before:
+        Color:
+            rgba: 0.15, 0.17, 0.25, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [15]
+
 <ConsultaEspecialidadScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 20
-        spacing: 15
+
+        canvas.before:
+            Color:
+                rgba: 0.10, 0.12, 0.20, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # HEADER
+        Label:
+            text: "Elegir especialidad"
+            size_hint_y: None
+            height: 60
+            color: 1,1,1,1
+            bold: True
+
+        ScrollView:
+            BoxLayout:
+                orientation: "vertical"
+                padding: 15
+                spacing: 15
+                size_hint_y: None
+                height: self.minimum_height
+
+                # 👨‍👩‍👧 FAMILIA
+                CustomCard:
+                    on_release: root.seleccionar("Familiar")
+
+                    Image:
+                        source: "assets/familia.png"
+                        size_hint_x: 0.3
+
+                    BoxLayout:
+                        orientation: "vertical"
+
+                        Label:
+                            text: "Derecho Familiar"
+                            color: 1,1,1,1
+                            bold: True
+
+                        Label:
+                            text: "Divorcios, hijos, herencias"
+                            color: 0.7,0.7,0.7,1
+
+                # 💼 LABORAL
+                CustomCard:
+                    on_release: root.seleccionar("Laboral")
+
+                    Image:
+                        source: "assets/laboral.png"
+                        size_hint_x: 0.3
+
+                    BoxLayout:
+                        orientation: "vertical"
+
+                        Label:
+                            text: "Derecho Laboral"
+                            color: 1,1,1,1
+                            bold: True
+
+                        Label:
+                            text: "Despidos, contratos"
+                            color: 0.7,0.7,0.7,1
+
+                # ⚖️ PENAL
+                CustomCard:
+                    on_release: root.seleccionar("Penal")
+
+                    Image:
+                        source: "assets/penal.png"
+                        size_hint_x: 0.3
+
+                    BoxLayout:
+                        orientation: "vertical"
+
+                        Label:
+                            text: "Derecho Penal"
+                            color: 1,1,1,1
+                            bold: True
+
+                        Label:
+                            text: "Denuncias, defensa"
+                            color: 0.7,0.7,0.7,1
+
+                # 📄 CIVIL
+                CustomCard:
+                    on_release: root.seleccionar("Civil")
+
+                    Image:
+                        source: "assets/civil.png"
+                        size_hint_x: 0.3
+
+                    BoxLayout:
+                        orientation: "vertical"
+
+                        Label:
+                            text: "Derecho Civil"
+                            color: 1,1,1,1
+                            bold: True
+
+                        Label:
+                            text: "Daños, contratos"
+                            color: 0.7,0.7,0.7,1
 
         Button:
-            text: "← Volver"
+            text: "Volver"
             size_hint_y: None
             height: 50
             on_release: root.volver()
-
-        Label:
-            text: "Área legal"
-            size_hint_y: None
-            height: 40
-
-        Button:
-            text: "Civil"
-            on_release: root.seleccionar("Civil")
-
-        Button:
-            text: "Penal"
-            on_release: root.seleccionar("Penal")
-
-        Button:
-            text: "Laboral"
-            on_release: root.seleccionar("Laboral")
-
-        Button:
-            text: "Familia"
-            on_release: root.seleccionar("Familia")

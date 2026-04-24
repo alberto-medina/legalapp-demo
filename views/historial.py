@@ -36,10 +36,7 @@ class HistorialScreen(Screen):
             )
             return
 
-        for c in consultas:
-            consulta_id = c[0]
-            abogado = c[1]
-            estado = c[2]
+        for consulta_id, abogado, estado in consultas:
 
             box = BoxLayout(
                 orientation="vertical",
@@ -61,7 +58,7 @@ class HistorialScreen(Screen):
     def abrir_chat(self, consulta_id):
         print("CLIENTE ABRE CHAT:", consulta_id)
 
-        session.consulta_id = consulta_id
+        session.current_consulta_id = consulta_id
         self.manager.current = "chat"
 
     def volver(self):

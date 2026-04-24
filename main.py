@@ -1,7 +1,15 @@
+import database
+print("DB INICIALIZADA")
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, FadeTransition
 from kivy.lang import Builder
+from kivy.core.window import Window
 
+# 📱 modo celular
+Window.size = (360, 640)
+
+# SCREENS
 from views.login import LoginScreen
 from views.register import RegisterScreen
 from views.dashboard import DashboardScreen
@@ -20,6 +28,7 @@ class LegalAppPro(App):
     def build(self):
         self.sm = ScreenManager(transition=FadeTransition())
 
+        # KV FILES
         Builder.load_file("views/login.kv")
         Builder.load_file("views/register.kv")
         Builder.load_file("views/dashboard.kv")
@@ -32,6 +41,7 @@ class LegalAppPro(App):
         Builder.load_file("views/abogado_panel.kv")
         Builder.load_file("views/perfil.kv")
 
+        # SCREENS
         self.sm.add_widget(LoginScreen(name="login"))
         self.sm.add_widget(RegisterScreen(name="register"))
         self.sm.add_widget(DashboardScreen(name="dashboard"))

@@ -1,24 +1,23 @@
 <ChatScreen>:
+
     BoxLayout:
         orientation: "vertical"
-        padding: 10
-        spacing: 10
+        spacing: 5
+        padding: 5
 
         Button:
             text: "← Volver"
             size_hint_y: None
-            height: 50
+            height: 40
             on_release: root.volver()
 
         ScrollView:
-            size_hint_y: 0.8
-
-            Label:
+            GridLayout:
                 id: chat_box
-                text: ""
+                cols: 1
+                spacing: 5
                 size_hint_y: None
-                height: self.texture_size[1]
-                text_size: self.width, None
+                height: self.minimum_height
 
         BoxLayout:
             size_hint_y: None
@@ -26,7 +25,14 @@
             spacing: 5
 
             TextInput:
-                id: input
+                id: input_mensaje
+                hint_text: "Escribí un mensaje..."
+                multiline: False
+
+            Button:
+                text: "📎"
+                size_hint_x: 0.2
+                on_release: root.adjuntar()
 
             Button:
                 text: "Enviar"

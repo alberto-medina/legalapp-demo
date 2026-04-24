@@ -1,19 +1,19 @@
 <AbogadosScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 10
-        spacing: 10
 
-        Button:
-            text: "← Volver"
-            size_hint_y: None
-            height: 50
-            on_release: root.volver()
+        canvas.before:
+            Color:
+                rgba: 0.10, 0.12, 0.20, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
         Label:
-            text: "Elegí un abogado"
+            text: "Seleccionar abogado"
             size_hint_y: None
-            height: 40
+            height: 60
+            color: 1,1,1,1
 
         ScrollView:
             BoxLayout:
@@ -21,3 +21,5 @@
                 orientation: "vertical"
                 size_hint_y: None
                 height: self.minimum_height
+                spacing: 10
+                padding: 10

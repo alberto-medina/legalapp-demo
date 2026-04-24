@@ -1,4 +1,4 @@
 current_user = None
-consulta_id = None
+current_consulta_id = None
 tipo_servicio = None
-abogado_seleccionado = None  # ahora guarda EMAIL
+abogado_seleccionado = None

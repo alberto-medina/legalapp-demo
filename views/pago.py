@@ -1,29 +1,30 @@
-from kivy.uix.screenmanager import Screen
-from database import get_connection
+import sqlite3
 import session
+from kivy.uix.screenmanager import Screen
 
 
 class PagoScreen(Screen):
 
-    def pagar(self):
-        conn = get_connection()
+    def pagar(self, tipo):
+        conn = sqlite3.connect("legal_app.db")
         cursor = conn.cursor()
 
-        abogado = (session.abogado_seleccionado or "").strip()
+        user = session.current_user
+        abogado = session.abogado_seleccionado
 
-        print("ABOGADO GUARDADO:", abogado)
+        precio = 1000
+        if tipo == "video":
+            precio = 3000
+        elif tipo == "urgente":
+            precio = 5000
 
         cursor.execute("""
-            INSERT INTO consultas (user_email, abogado, estado)
-            VALUES (?, ?, ?)
-        """, (
-            session.current_user[2],
-            abogado,
-            "pagado"
-        ))
+            INSERT INTO consultas (user_email, abogado, estado, tipo_servicio)
+            VALUES (?, ?, ?, ?)
+        """, (user[2], abogado, "pagado", tipo))
 
         consulta_id = cursor.lastrowid
-        session.consulta_id = consulta_id
+        session.current_consulta_id = consulta_id
 
         conn.commit()
         conn.close()

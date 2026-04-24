@@ -1,28 +1,62 @@
 <PagoScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 20
-        spacing: 20
 
-        Button:
-            text: "← Volver"
-            size_hint_y: None
-            height: 50
-            on_release: root.volver()
+        canvas.before:
+            Color:
+                rgba: 0.10, 0.12, 0.20, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
-        Label:
-            text: "Confirmar pago"
-            size_hint_y: None
-            height: 40
-
-        Label:
-            id: precio
-            text: ""
-            size_hint_y: None
-            height: 40
-
-        Button:
-            text: "Pagar"
+        # HEADER
+        BoxLayout:
             size_hint_y: None
             height: 60
-            on_release: root.pagar()
+            padding: 10
+
+            canvas.before:
+                Color:
+                    rgba: 0.15, 0.17, 0.25, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Seleccionar servicio"
+                color: 1,1,1,1
+                bold: True
+
+        # CONTENIDO
+        BoxLayout:
+            orientation: "vertical"
+            padding: 20
+            spacing: 15
+
+            Button:
+                text: "Chat - $1000"
+                size_hint_y: None
+                height: 60
+                background_color: 0.20, 0.60, 1, 1
+                on_release: root.pagar("chat")
+
+            Button:
+                text: "Videollamada - $3000"
+                size_hint_y: None
+                height: 60
+                background_color: 0.20, 0.60, 1, 1
+                on_release: root.pagar("video")
+
+            Button:
+                text: "Urgente - $5000"
+                size_hint_y: None
+                height: 60
+                background_color: 0.80, 0.30, 0.30, 1
+                on_release: root.pagar("urgente")
+
+        # FOOTER
+        Button:
+            text: "Volver"
+            size_hint_y: None
+            height: 50
+            on_release: root.manager.current = "abogados"

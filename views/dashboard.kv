@@ -1,85 +1,46 @@
-
 <DashboardScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 20
-        spacing: 20
 
         canvas.before:
             Color:
-                rgba: 0.05, 0.06, 0.08, 1
+                rgba: 0.10, 0.12, 0.20, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
-        # HEADER
         BoxLayout:
             size_hint_y: None
             height: 60
-            spacing: 10
+            padding: 10
 
             Label:
-                text: "Legal App"
-                font_size: 24
-                bold: True
+                text: "LEGAL APP"
                 color: 1,1,1,1
+                bold: True
 
-            Button:
-                text: "Cerrar sesión"
-                size_hint_x: None
-                width: 130
-                background_color: 0.2,0.2,0.25,1
-                on_release: root.cerrar_sesion()
-
-        # TARJETA PRINCIPAL
         BoxLayout:
             orientation: "vertical"
             padding: 20
             spacing: 15
-            size_hint_y: None
-            height: 160
-
-            canvas.before:
-                Color:
-                    rgba: 0.12, 0.14, 0.18, 1
-                RoundedRectangle:
-                    pos: self.pos
-                    size: self.size
-                    radius: [15]
-
-            Label:
-                text: "¿Necesitás asesoramiento legal?"
-                color: 1,1,1,1
-                font_size: 16
-
-            Label:
-                text: "Consultá con abogados en minutos"
-                color: 0.7,0.7,0.7,1
-                font_size: 13
 
             Button:
                 text: "Nueva Consulta"
                 size_hint_y: None
-                height: 45
-                background_color: 0.2, 0.6, 1, 1
+                height: 60
+                background_color: 0.20, 0.60, 1, 1
                 on_release: root.nueva_consulta()
-
-        # ACCIONES
-        GridLayout:
-            cols: 2
-            spacing: 15
-            size_hint_y: None
-            height: 120
 
             Button:
                 text: "Historial"
-                background_color: 0.2,0.2,0.25,1
+                size_hint_y: None
+                height: 60
+                background_color: 0.15, 0.17, 0.25, 1
                 on_release: root.ver_historial()
 
             Button:
-                text: "Mi Perfil"
-                background_color: 0.2,0.2,0.25,1
+                text: "Perfil"
+                size_hint_y: None
+                height: 60
+                background_color: 0.15, 0.17, 0.25, 1
                 on_release: root.ir_perfil()
-
-        # ESPACIO FLEX
-        Widget:

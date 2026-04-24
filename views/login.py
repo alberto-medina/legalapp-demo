@@ -1,23 +1,26 @@
 from kivy.uix.screenmanager import Screen
 from database import get_connection
 import session
+import hashlib
 
 
 class LoginScreen(Screen):
 
     def login(self):
-        email = self.ids.email.text
-        password = self.ids.password.text
+        email = self.ids.email.text.strip().lower()
+        password = self.ids.password.text.strip()
+
+        # 🔥 HASH DE PASSWORD
+        password_hash = hashlib.sha256(password.encode()).hexdigest()
+
+        print("INTENTO LOGIN:", email, password)
 
         conn = get_connection()
         cursor = conn.cursor()
 
-        # 🔥 TRAEMOS TODAS LAS COLUMNAS (CLAVE)
         cursor.execute("""
-            SELECT id, username, email, password, rol, telefono, foto
-            FROM users
-            WHERE email=? AND password=?
-        """, (email, password))
+            SELECT * FROM users WHERE LOWER(email)=? AND password=?
+        """, (email, password_hash))
 
         user = cursor.fetchone()
         conn.close()
@@ -26,14 +29,12 @@ class LoginScreen(Screen):
             session.current_user = user
             print("LOGIN OK:", user)
 
-            # 🔥 REDIRECCIÓN SEGÚN ROL
-            try:
-                if user[4] == "abogado":
-                    self.manager.current = "abogado_panel"
-                else:
-                    self.manager.current = "dashboard"
-            except:
+            if user[4] == "abogado":
+                self.manager.current = "abogado_panel"
+            else:
                 self.manager.current = "dashboard"
-
         else:
-            print("Login incorrecto")
+            print("LOGIN ERROR - password incorrecta o usuario no existe")
+
+    def go_register(self):
+        self.manager.current = "register"
