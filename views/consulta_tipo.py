@@ -6,7 +6,7 @@ class ConsultaTipoScreen(Screen):
 
     def seleccionar(self, servicio):
         session.tipo_servicio = servicio
-        self.manager.current = "especialidad"
+        self.manager.current = "pago"  # 🔥 AHORA VA A PAGO
 
     def volver(self):
-        self.manager.current = "dashboard"
+        self.manager.current = "abogados"  # 🔥 VUELVE A ABOGADOS

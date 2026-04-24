@@ -6,7 +6,7 @@ class ConsultaEspecialidadScreen(Screen):
 
     def seleccionar(self, area):
         session.area_legal = area
-        self.manager.current = "abogados"
+        self.manager.current = "abogados"  # 🔥 AHORA VA A ABOGADOS
 
     def volver(self):
-        self.manager.current = "tipo"
+        self.manager.current = "dashboard"

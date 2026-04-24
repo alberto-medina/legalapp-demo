@@ -12,10 +12,23 @@ class AbogadosScreen(Screen):
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT username, email FROM users WHERE rol='abogado'")
-        abogados = cursor.fetchall()
+        cursor.execute("""
+            SELECT username, email
+            FROM users
+            WHERE rol='abogado'
+        """)
 
+        abogados = cursor.fetchall()
         conn.close()
+
+        if not abogados:
+            btn = Button(
+                text="No hay abogados cargados",
+                size_hint_y=None,
+                height=80
+            )
+            self.ids.lista.add_widget(btn)
+            return
 
         for nombre, email in abogados:
             btn = Button(
@@ -30,5 +43,5 @@ class AbogadosScreen(Screen):
     def seleccionar(self, email):
         session.abogado_seleccionado = email
         print("ABOGADO:", email)
-        self.manager.current = "pago"
+        self.manager.current = "tipo"  # 🔥 AHORA VA A TIPO
 

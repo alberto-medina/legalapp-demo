@@ -1,3 +1,21 @@
+#:import ButtonBehavior kivy.uix.behaviors.ButtonBehavior
+
+<CustomCard@ButtonBehavior+BoxLayout>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: 110
+    padding: 10
+    spacing: 10
+
+    canvas.before:
+        Color:
+            rgba: 0.15, 0.17, 0.25, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [15]
+
+
 <ConsultaTipoScreen>:
     BoxLayout:
         orientation: "vertical"
@@ -9,38 +27,86 @@
                 pos: self.pos
                 size: self.size
 
+        # HEADER
         Label:
-            text: "Tipo de servicio"
+            text: "Elegir tipo de servicio"
             size_hint_y: None
             height: 60
             color: 1,1,1,1
             bold: True
 
-        BoxLayout:
-            orientation: "vertical"
-            padding: 20
-            spacing: 15
-
-            Button:
-                text: "Chat"
+        ScrollView:
+            BoxLayout:
+                orientation: "vertical"
+                padding: 15
+                spacing: 15
                 size_hint_y: None
-                height: 60
-                on_release: root.seleccionar("chat")
+                height: self.minimum_height
 
-            Button:
-                text: "Videollamada"
-                size_hint_y: None
-                height: 60
-                on_release: root.seleccionar("video")
+                # 💬 CHAT
+                CustomCard:
+                    on_release: root.seleccionar("chat")
 
-            Button:
-                text: "Urgente"
-                size_hint_y: None
-                height: 60
-                on_release: root.seleccionar("urgente")
+                    Image:
+                        source: "assets/chat.png"
+                        size_hint_x: 0.3
 
+                    BoxLayout:
+                        orientation: "vertical"
+
+                        Label:
+                            text: "Chat"
+                            bold: True
+                            color: 1,1,1,1
+
+                        Label:
+                            text: "$1000 - Consulta por mensajes"
+                            color: 0.7,0.7,0.7,1
+
+                # 🎥 VIDEO
+                CustomCard:
+                    on_release: root.seleccionar("video")
+
+                    Image:
+                        source: "assets/video.png"
+                        size_hint_x: 0.3
+
+                    BoxLayout:
+                        orientation: "vertical"
+
+                        Label:
+                            text: "Videollamada"
+                            bold: True
+                            color: 1,1,1,1
+
+                        Label:
+                            text: "$3000 - Consulta en vivo"
+                            color: 0.7,0.7,0.7,1
+
+                # ⚠️ URGENTE
+                CustomCard:
+                    on_release: root.seleccionar("urgente")
+
+                    Image:
+                        source: "assets/urgente.png"
+                        size_hint_x: 0.3
+
+                    BoxLayout:
+                        orientation: "vertical"
+
+                        Label:
+                            text: "Urgente"
+                            bold: True
+                            color: 1,1,1,1
+
+                        Label:
+                            text: "$5000 - Atención prioritaria"
+                            color: 0.7,0.7,0.7,1
+
+        # FOOTER
         Button:
             text: "Volver"
             size_hint_y: None
             height: 50
+            background_color: 0.15, 0.17, 0.25, 1
             on_release: root.volver()

@@ -1,6 +1,26 @@
+#:import ButtonBehavior kivy.uix.behaviors.ButtonBehavior
+
+<InfoCard@BoxLayout>:
+    orientation: "vertical"
+    size_hint_y: None
+    height: 140
+    padding: 15
+    spacing: 8
+
+    canvas.before:
+        Color:
+            rgba: 0.15, 0.17, 0.25, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [15]
+
+
 <PagoScreen>:
     BoxLayout:
         orientation: "vertical"
+        padding: 15
+        spacing: 15
 
         canvas.before:
             Color:
@@ -10,53 +30,67 @@
                 size: self.size
 
         # HEADER
-        BoxLayout:
+        Label:
+            text: "Confirmar consulta"
             size_hint_y: None
             height: 60
-            padding: 10
+            color: 1,1,1,1
+            bold: True
 
-            canvas.before:
-                Color:
-                    rgba: 0.15, 0.17, 0.25, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-
+        # RESUMEN
+        InfoCard:
             Label:
-                text: "Seleccionar servicio"
+                text: "Especialidad"
+                color: 0.7,0.7,0.7,1
+            Label:
+                id: lbl_area
+                text: "-"
                 color: 1,1,1,1
                 bold: True
 
-        # CONTENIDO
-        BoxLayout:
-            orientation: "vertical"
-            padding: 20
-            spacing: 15
+        InfoCard:
+            Label:
+                text: "Abogado"
+                color: 0.7,0.7,0.7,1
+            Label:
+                id: lbl_abogado
+                text: "-"
+                color: 1,1,1,1
+                bold: True
 
-            Button:
-                text: "Chat - $1000"
-                size_hint_y: None
-                height: 60
-                background_color: 0.20, 0.60, 1, 1
-                on_release: root.pagar("chat")
+        InfoCard:
+            Label:
+                text: "Servicio"
+                color: 0.7,0.7,0.7,1
+            Label:
+                id: lbl_tipo
+                text: "-"
+                color: 1,1,1,1
+                bold: True
 
-            Button:
-                text: "Videollamada - $3000"
-                size_hint_y: None
-                height: 60
-                background_color: 0.20, 0.60, 1, 1
-                on_release: root.pagar("video")
+        InfoCard:
+            Label:
+                text: "Total a pagar"
+                color: 0.7,0.7,0.7,1
+            Label:
+                id: lbl_precio
+                text: "$0"
+                color: 0,1,0,1
+                font_size: 20
+                bold: True
 
-            Button:
-                text: "Urgente - $5000"
-                size_hint_y: None
-                height: 60
-                background_color: 0.80, 0.30, 0.30, 1
-                on_release: root.pagar("urgente")
+        # BOTÓN PRINCIPAL
+        Button:
+            text: "Confirmar y comenzar consulta"
+            size_hint_y: None
+            height: 60
+            background_color: 0.20, 0.60, 1, 1
+            on_release: root.pagar()
 
-        # FOOTER
+        # VOLVER
         Button:
             text: "Volver"
             size_hint_y: None
             height: 50
+            background_color: 0.15, 0.17, 0.25, 1
             on_release: root.manager.current = "abogados"

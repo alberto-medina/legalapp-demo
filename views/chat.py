@@ -89,13 +89,23 @@ class ChatScreen(Screen):
 
         origen = selection[0]
 
+        # 🔥 Validar origen
+        if not os.path.exists(origen):
+            print("Archivo origen no existe:", origen)
+            return
+
+        # 🔥 Crear carpeta si no existe
         if not os.path.exists(UPLOAD_DIR):
             os.makedirs(UPLOAD_DIR)
 
         nombre = f"{int(time.time())}_{os.path.basename(origen)}"
-        destino = os.path.join(UPLOAD_DIR, nombre)
+        destino = os.path.abspath(os.path.join(UPLOAD_DIR, nombre))  # 🔥 ruta absoluta
 
-        shutil.copy(origen, destino)
+        try:
+            shutil.copy(origen, destino)
+        except Exception as e:
+            print("Error copiando archivo:", e)
+            return
 
         conn = get_connection()
         cursor = conn.cursor()
@@ -112,10 +122,21 @@ class ChatScreen(Screen):
         conn.commit()
         conn.close()
 
+        print("Archivo guardado en:", destino)
+
         self.cargar_mensajes()
 
     def abrir_archivo(self, path):
-        print("Abrir archivo:", path)
+        try:
+            ruta = os.path.abspath(path)
+
+            if os.path.exists(ruta):
+                print("Abriendo:", ruta)
+                os.startfile(ruta)
+            else:
+                print("Archivo no encontrado:", ruta)
+        except Exception as e:
+            print("Error al abrir archivo:", e)
 
     def volver(self):
         if session.current_user[4] == "abogado":

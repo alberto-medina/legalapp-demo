@@ -4,7 +4,8 @@ from kivy.uix.screenmanager import Screen
 class DashboardScreen(Screen):
 
     def nueva_consulta(self):
-        self.manager.current = "tipo"
+        # 🔥 ARRANCA BIEN EL FLUJO
+        self.manager.current = "especialidad"
 
     def ver_historial(self):
         self.manager.current = "historial"
