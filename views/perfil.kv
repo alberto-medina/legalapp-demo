@@ -1,68 +1,282 @@
 <PerfilScreen>:
+
     BoxLayout:
         orientation: "vertical"
 
         canvas.before:
             Color:
-                rgba: 0.10, 0.12, 0.20, 1
+                rgba: 0.96, 0.97, 0.98, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
-        Label:
-            text: "Perfil"
+        # TOPBAR
+        BoxLayout:
             size_hint_y: None
-            height: 50
-            color: 1,1,1,1
-            bold: True
+            height: 58
+            padding: [12, 10, 16, 10]
+            canvas.before:
+                Color:
+                    rgba: 0.00, 0.04, 0.22, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: "<"
+                size_hint_x: None
+                width: 36
+                font_size: 22
+                bold: True
+                background_color: 0, 0, 0, 0
+                color: 0.99, 0.84, 0.00, 1
+                on_release: root.volver()
+
+            Label:
+                text: "MI PERFIL"
+                font_size: 16
+                bold: True
+                color: 1, 1, 1, 1
+                halign: "left"
+                text_size: self.size
 
         ScrollView:
+
             BoxLayout:
                 orientation: "vertical"
-                padding: 20
-                spacing: 10
+                padding: [16, 16, 16, 80]
+                spacing: 12
                 size_hint_y: None
                 height: self.minimum_height
 
+                # AVATAR CARD
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: 160
+                    spacing: 8
+                    padding: [0, 12, 0, 8]
+                    canvas.before:
+                        Color:
+                            rgba: 0.00, 0.04, 0.22, 1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [16]
+
+                    AsyncImage:
+                        id: img_avatar
+                        source: "assets/avatar_default.png"
+                        size_hint: None, None
+                        size: 88, 88
+                        pos_hint: {"center_x": 0.5}
+                        allow_stretch: True
+                        keep_ratio: True
+
+                    Label:
+                        id: lbl_rol_badge
+                        text: ""
+                        font_size: 12
+                        bold: True
+                        size_hint_y: None
+                        height: 22
+                        halign: "center"
+                        text_size: self.size
+
+                    Button:
+                        text: "Cambiar foto"
+                        size_hint: None, None
+                        size: 130, 32
+                        pos_hint: {"center_x": 0.5}
+                        font_size: 12
+                        background_color: 0.99, 0.84, 0.00, 1
+                        color: 0.00, 0.04, 0.22, 1
+                        bold: True
+                        on_release: root.elegir_foto()
+
+                # CAMPOS
+                Label:
+                    text: "NOMBRE"
+                    font_size: 10
+                    bold: True
+                    color: 0.40, 0.45, 0.55, 1
+                    size_hint_y: None
+                    height: 18
+                    halign: "left"
+                    text_size: self.size
+
                 TextInput:
                     id: nombre
-                    hint_text: "Nombre"
+                    hint_text: "Tu nombre completo"
+                    multiline: False
                     size_hint_y: None
-                    height: 50
+                    height: 46
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0.08, 0.12, 0.28, 1
+                    hint_text_color: 0.60, 0.63, 0.70, 1
+                    cursor_color: 0.00, 0.04, 0.22, 1
+                    padding: [12, 12]
+
+                Label:
+                    text: "TELEFONO"
+                    font_size: 10
+                    bold: True
+                    color: 0.40, 0.45, 0.55, 1
+                    size_hint_y: None
+                    height: 18
+                    halign: "left"
+                    text_size: self.size
 
                 TextInput:
                     id: telefono
-                    hint_text: "Telefono"
+                    hint_text: "+54 9 xxx-xxx"
+                    multiline: False
                     size_hint_y: None
-                    height: 50
+                    height: 46
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0.08, 0.12, 0.28, 1
+                    hint_text_color: 0.60, 0.63, 0.70, 1
+                    cursor_color: 0.00, 0.04, 0.22, 1
+                    padding: [12, 12]
+
+                Label:
+                    text: "FOTO (ruta o URL)"
+                    font_size: 10
+                    bold: True
+                    color: 0.40, 0.45, 0.55, 1
+                    size_hint_y: None
+                    height: 18
+                    halign: "left"
+                    text_size: self.size
 
                 TextInput:
                     id: foto
-                    hint_text: "URL Foto"
+                    hint_text: "Se completa al elegir foto..."
+                    multiline: False
                     size_hint_y: None
-                    height: 50
+                    height: 46
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0.08, 0.12, 0.28, 1
+                    hint_text_color: 0.60, 0.63, 0.70, 1
+                    cursor_color: 0.00, 0.04, 0.22, 1
+                    padding: [12, 12]
 
-                TextInput:
-                    id: matricula
-                    hint_text: "Matricula"
+                # SECCION ABOGADO
+                BoxLayout:
+                    id: seccion_abogado
+                    orientation: "vertical"
+                    spacing: 12
                     size_hint_y: None
-                    height: 50
+                    height: self.minimum_height
 
-                TextInput:
-                    id: experiencia
-                    hint_text: "Años de experiencia"
-                    size_hint_y: None
-                    height: 50
+                    Label:
+                        text: "MATRICULA"
+                        font_size: 10
+                        bold: True
+                        color: 0.40, 0.45, 0.55, 1
+                        size_hint_y: None
+                        height: 18
+                        halign: "left"
+                        text_size: self.size
 
-                TextInput:
-                    id: descripcion
-                    hint_text: "Descripcion"
+                    TextInput:
+                        id: matricula
+                        hint_text: "Numero de matricula"
+                        multiline: False
+                        size_hint_y: None
+                        height: 46
+                        background_color: 1, 1, 1, 1
+                        foreground_color: 0.08, 0.12, 0.28, 1
+                        hint_text_color: 0.60, 0.63, 0.70, 1
+                        cursor_color: 0.00, 0.04, 0.22, 1
+                        padding: [12, 12]
+
+                    Label:
+                        text: "ANOS DE EXPERIENCIA"
+                        font_size: 10
+                        bold: True
+                        color: 0.40, 0.45, 0.55, 1
+                        size_hint_y: None
+                        height: 18
+                        halign: "left"
+                        text_size: self.size
+
+                    TextInput:
+                        id: experiencia
+                        hint_text: "Ej: 8 anos"
+                        multiline: False
+                        size_hint_y: None
+                        height: 46
+                        background_color: 1, 1, 1, 1
+                        foreground_color: 0.08, 0.12, 0.28, 1
+                        hint_text_color: 0.60, 0.63, 0.70, 1
+                        cursor_color: 0.00, 0.04, 0.22, 1
+                        padding: [12, 12]
+
+                    Label:
+                        text: "BIO / DESCRIPCION"
+                        font_size: 10
+                        bold: True
+                        color: 0.40, 0.45, 0.55, 1
+                        size_hint_y: None
+                        height: 18
+                        halign: "left"
+                        text_size: self.size
+
+                    TextInput:
+                        id: descripcion
+                        hint_text: "Contanos sobre tu especialidad..."
+                        multiline: True
+                        size_hint_y: None
+                        height: 90
+                        background_color: 1, 1, 1, 1
+                        foreground_color: 0.08, 0.12, 0.28, 1
+                        hint_text_color: 0.60, 0.63, 0.70, 1
+                        cursor_color: 0.00, 0.04, 0.22, 1
+                        padding: [12, 12]
+
+                    # RESENAS
+                    Widget:
+                        size_hint_y: None
+                        height: 12
+
+                    Label:
+                        text: "OPINIONES DE CLIENTES"
+                        font_size: 11
+                        bold: True
+                        color: 0.40, 0.45, 0.55, 1
+                        size_hint_y: None
+                        height: 22
+                        halign: "left"
+                        text_size: self.size
+
+                    Label:
+                        id: lbl_promedio
+                        text: "-"
+                        font_size: 14
+                        bold: True
+                        size_hint_y: None
+                        height: 26
+                        halign: "left"
+                        text_size: self.size
+
+                    BoxLayout:
+                        id: resenas_box
+                        orientation: "vertical"
+                        spacing: 8
+                        size_hint_y: None
+                        height: self.minimum_height
+
+                Widget:
                     size_hint_y: None
-                    height: 80
+                    height: 10
 
                 Button:
-                    text: "Guardar"
+                    text: "GUARDAR CAMBIOS"
                     size_hint_y: None
-                    height: 50
-                    background_color: 0.20, 0.60, 1, 1
+                    height: 52
+                    bold: True
+                    font_size: 15
+                    background_color: 0.00, 0.04, 0.22, 1
+                    color: 1, 1, 1, 1
                     on_release: root.guardar()

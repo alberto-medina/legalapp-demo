@@ -2,39 +2,158 @@
 
     BoxLayout:
         orientation: "vertical"
-        spacing: 5
-        padding: 5
 
-        Button:
-            text: "← Volver"
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.97, 0.98, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # TOPBAR
+        BoxLayout:
             size_hint_y: None
-            height: 40
-            on_release: root.volver()
+            height: 62
+            padding: [12, 8, 12, 8]
+            spacing: 8
+            canvas.before:
+                Color:
+                    rgba: 0.00, 0.04, 0.22, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
 
+            Button:
+                text: "<"
+                size_hint_x: None
+                width: 36
+                font_size: 22
+                bold: True
+                background_color: 0, 0, 0, 0
+                color: 0.99, 0.84, 0.00, 1
+                on_release: root.volver()
+
+            BoxLayout:
+                orientation: "vertical"
+                spacing: 1
+
+                Label:
+                    id: lbl_chat_titulo
+                    text: ""
+                    font_size: 14
+                    bold: True
+                    color: 1, 1, 1, 1
+                    halign: "left"
+                    text_size: self.size
+
+                Label:
+                    id: lbl_chat_tipo
+                    text: ""
+                    font_size: 10
+                    color: 0.75, 0.80, 0.95, 1
+                    halign: "left"
+                    text_size: self.size
+
+                Label:
+                    id: lbl_estado_linea
+                    text: ""
+                    font_size: 11
+                    bold: True
+                    color: 0.10, 0.72, 0.38, 1
+                    halign: "left"
+                    text_size: self.size
+
+            Button:
+                id: btn_finalizar
+                text: "Finalizar"
+                size_hint_x: None
+                width: 86
+                font_size: 12
+                bold: True
+                background_color: 0.85, 0.18, 0.18, 1
+                color: 1, 1, 1, 1
+                on_release: root.finalizar_consulta()
+                opacity: 0
+                disabled: True
+
+        # BANNER FINALIZADO - height=0 cuando no esta finalizado
+        BoxLayout:
+            id: banner_finalizado
+            size_hint_y: None
+            height: 0
+            padding: [14, 6]
+            canvas.before:
+                Color:
+                    rgba: 0.95, 0.92, 0.82, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                id: lbl_banner_fin
+                text: ""
+                font_size: 12
+                bold: True
+                color: 0.55, 0.38, 0.00, 1
+                halign: "center"
+                text_size: self.size
+
+        # MENSAJES
         ScrollView:
+            id: scroll_chat
             GridLayout:
                 id: chat_box
                 cols: 1
-                spacing: 5
+                spacing: 6
+                padding: [12, 10, 12, 10]
                 size_hint_y: None
                 height: self.minimum_height
 
+        # INPUT
         BoxLayout:
+            id: input_area
             size_hint_y: None
-            height: 50
-            spacing: 5
+            height: 54
+            spacing: 6
+            padding: [10, 8]
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                Color:
+                    rgba: 0.88, 0.89, 0.91, 1
+                Line:
+                    points: [self.x, self.top, self.right, self.top]
+                    width: 0.8
 
             TextInput:
                 id: input_mensaje
-                hint_text: "Escribí un mensaje..."
+                hint_text: "Escribi un mensaje..."
                 multiline: False
+                background_color: 0.95, 0.96, 0.97, 1
+                foreground_color: 0.10, 0.14, 0.28, 1
+                hint_text_color: 0.60, 0.63, 0.70, 1
+                cursor_color: 0.00, 0.04, 0.22, 1
+                padding: [10, 10]
+                font_size: 13
 
             Button:
-                text: "📎"
-                size_hint_x: 0.2
+                text: "Adj"
+                size_hint_x: None
+                width: 44
+                font_size: 12
+                background_color: 0.92, 0.93, 0.95, 1
+                color: 0.30, 0.35, 0.50, 1
                 on_release: root.adjuntar()
 
             Button:
                 text: "Enviar"
-                size_hint_x: 0.3
+                size_hint_x: None
+                width: 72
+                font_size: 13
+                bold: True
+                background_color: 0.00, 0.04, 0.22, 1
+                color: 1, 1, 1, 1
                 on_release: root.enviar()

@@ -1,25 +1,86 @@
 <AbogadosScreen>:
+
     BoxLayout:
         orientation: "vertical"
 
         canvas.before:
             Color:
-                rgba: 0.10, 0.12, 0.20, 1
+                rgba: 0.96, 0.97, 0.98, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
-        Label:
-            text: "Seleccionar abogado"
+        # TOPBAR
+        BoxLayout:
             size_hint_y: None
             height: 60
-            color: 1,1,1,1
+            padding: [12, 10, 16, 10]
+            canvas.before:
+                Color:
+                    rgba: 0.00, 0.04, 0.22, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
 
+            Button:
+                text: "<"
+                size_hint_x: None
+                width: 36
+                font_size: 22
+                bold: True
+                background_color: 0, 0, 0, 0
+                color: 0.99, 0.84, 0.00, 1
+                on_release: root.volver()
+
+            BoxLayout:
+                orientation: "vertical"
+                Label:
+                    text: "ABOGADOS"
+                    font_size: 16
+                    bold: True
+                    color: 1, 1, 1, 1
+                    halign: "left"
+                    text_size: self.size
+                Label:
+                    id: lbl_area
+                    text: ""
+                    font_size: 11
+                    color: 0.99, 0.84, 0.00, 1
+                    halign: "left"
+                    text_size: self.size
+
+        # BUSCADOR
+        BoxLayout:
+            size_hint_y: None
+            height: 48
+            padding: [16, 8, 16, 4]
+            canvas.before:
+                Color:
+                    rgba: 0.00, 0.04, 0.22, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            TextInput:
+                id: buscador
+                hint_text: "Buscar abogado..."
+                multiline: False
+                size_hint_y: None
+                height: 34
+                background_color: 0.08, 0.12, 0.35, 1
+                foreground_color: 1, 1, 1, 1
+                hint_text_color: 0.50, 0.55, 0.70, 1
+                cursor_color: 0.99, 0.84, 0.00, 1
+                padding: [10, 8]
+                font_size: 13
+                on_text: root.filtrar(self.text)
+
+        # LISTA
         ScrollView:
             BoxLayout:
                 id: lista
                 orientation: "vertical"
+                padding: [14, 12, 14, 80]
+                spacing: 10
                 size_hint_y: None
                 height: self.minimum_height
-                spacing: 10
-                padding: 10

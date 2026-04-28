@@ -7,11 +7,11 @@ def hash_password(password):
 conn = get_connection()
 cursor = conn.cursor()
 
-# 🔥 BORRAR SI EXISTEN
+#  BORRAR SI EXISTEN
 cursor.execute("DELETE FROM users WHERE email=?", ("abogado@test.com",))
 cursor.execute("DELETE FROM users WHERE email=?", ("cliente@test.com",))
 
-# 👨‍⚖️ CREAR ABOGADO
+#  CREAR ABOGADO
 cursor.execute(
     """
     INSERT INTO users (username, email, password, rol, telefono)
@@ -20,7 +20,7 @@ cursor.execute(
     ("Dr Test", "abogado@test.com", hash_password("1234"), "abogado", "")
 )
 
-# 👤 CREAR CLIENTE
+#  CREAR CLIENTE
 cursor.execute(
     """
     INSERT INTO users (username, email, password, rol, telefono)
@@ -32,4 +32,4 @@ cursor.execute(
 conn.commit()
 conn.close()
 
-print("✔ Abogado y Cliente creados correctamente")
+print("OK Abogado y Cliente creados correctamente")

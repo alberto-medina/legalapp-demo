@@ -9,4 +9,4 @@ class ConsultaEspecialidadScreen(Screen):
         self.manager.current = "abogados"
 
     def volver(self):
-        self.manager.current = "tipo"
+        self.manager.current = "dashboard"

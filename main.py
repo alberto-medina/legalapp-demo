@@ -6,10 +6,8 @@ from kivy.uix.screenmanager import ScreenManager, FadeTransition
 from kivy.lang import Builder
 from kivy.core.window import Window
 
-# 📱 modo celular
 Window.size = (360, 640)
 
-# SCREENS
 from views.login import LoginScreen
 from views.register import RegisterScreen
 from views.dashboard import DashboardScreen
@@ -21,6 +19,7 @@ from views.chat import ChatScreen
 from views.historial import HistorialScreen
 from views.abogado_panel import AbogadoPanelScreen
 from views.perfil import PerfilScreen
+from views.resena import ResenaScreen
 
 
 class LegalAppPro(App):
@@ -28,7 +27,6 @@ class LegalAppPro(App):
     def build(self):
         self.sm = ScreenManager(transition=FadeTransition())
 
-        # KV FILES
         Builder.load_file("views/login.kv")
         Builder.load_file("views/register.kv")
         Builder.load_file("views/dashboard.kv")
@@ -40,8 +38,8 @@ class LegalAppPro(App):
         Builder.load_file("views/historial.kv")
         Builder.load_file("views/abogado_panel.kv")
         Builder.load_file("views/perfil.kv")
+        Builder.load_file("views/resena.kv")
 
-        # SCREENS
         self.sm.add_widget(LoginScreen(name="login"))
         self.sm.add_widget(RegisterScreen(name="register"))
         self.sm.add_widget(DashboardScreen(name="dashboard"))
@@ -53,6 +51,7 @@ class LegalAppPro(App):
         self.sm.add_widget(HistorialScreen(name="historial"))
         self.sm.add_widget(AbogadoPanelScreen(name="abogado_panel"))
         self.sm.add_widget(PerfilScreen(name="perfil"))
+        self.sm.add_widget(ResenaScreen(name="resena"))
 
         return self.sm
 

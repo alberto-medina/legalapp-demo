@@ -1,62 +1,127 @@
 <PagoScreen>:
+
     BoxLayout:
         orientation: "vertical"
 
         canvas.before:
             Color:
-                rgba: 0.10, 0.12, 0.20, 1
+                rgba: 0.00, 0.02, 0.12, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
-        # HEADER
+        # TOPBAR
+        BoxLayout:
+            size_hint_y: None
+            height: 56
+            padding: [16, 8, 16, 8]
+            canvas.before:
+                Color:
+                    rgba: 0.00, 0.04, 0.20, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: "<"
+                size_hint_x: None
+                width: 36
+                font_size: 20
+                bold: True
+                background_color: 0, 0, 0, 0
+                color: 0.99, 0.84, 0.00, 1
+                on_release: root.manager.current = "tipo"
+
+            Label:
+                text: "CONFIRMAR CONSULTA"
+                font_size: 15
+                bold: True
+                color: 0.99, 0.84, 0.00, 1
+                halign: "left"
+                text_size: self.size
+
+        # INFO ABOGADO (mismo id lbl_abogado_info que antes)
         BoxLayout:
             size_hint_y: None
             height: 60
-            padding: 10
-
+            padding: [16, 8]
             canvas.before:
                 Color:
-                    rgba: 0.15, 0.17, 0.25, 1
+                    rgba: 0.02, 0.04, 0.16, 1
                 Rectangle:
                     pos: self.pos
                     size: self.size
 
             Label:
-                text: "Seleccionar servicio"
-                color: 1,1,1,1
-                bold: True
+                id: lbl_abogado_info
+                text: "Abogado seleccionado"
+                font_size: 13
+                color: 0.70, 0.72, 0.85, 1
+                halign: "left"
+                text_size: self.size
 
-        # CONTENIDO
+        # CARD CENTRAL
         BoxLayout:
             orientation: "vertical"
-            padding: 20
-            spacing: 15
+            padding: [24, 36, 24, 24]
+            spacing: 20
 
-            Button:
-                text: "Chat - $1000"
+            # Precio grande
+            Label:
+                id: lbl_precio_grande
+                text: "$0"
+                font_size: 56
+                bold: True
+                color: 0.99, 0.84, 0.00, 1
                 size_hint_y: None
-                height: 60
-                background_color: 0.20, 0.60, 1, 1
-                on_release: root.pagar("chat")
+                height: 80
+                halign: "center"
+                text_size: self.size
 
-            Button:
-                text: "Videollamada - $3000"
+            # Descripcion del servicio elegido
+            Label:
+                id: lbl_tipo_desc
+                text: ""
+                font_size: 14
+                color: 0.60, 0.65, 0.80, 1
                 size_hint_y: None
-                height: 60
-                background_color: 0.20, 0.60, 1, 1
-                on_release: root.pagar("video")
+                height: 36
+                halign: "center"
+                text_size: self.size
 
-            Button:
-                text: "Urgente - $5000"
+            Widget:
                 size_hint_y: None
-                height: 60
-                background_color: 0.80, 0.30, 0.30, 1
-                on_release: root.pagar("urgente")
+                height: 16
 
-        # FOOTER
+            # BOTON UNICO - on_release llama pagar() sin argumento,
+            # el tipo lo lee directamente de session en Python
+            Button:
+                id: btn_pago_unico
+                text: "Confirmar pago"
+                size_hint_y: None
+                height: 64
+                bold: True
+                font_size: 17
+                color: 1, 1, 1, 1
+                on_release: root.pagar()
+
+            Label:
+                text: "Pago 100% seguro. Se acredita al instante."
+                font_size: 11
+                color: 0.35, 0.40, 0.55, 1
+                size_hint_y: None
+                height: 24
+                halign: "center"
+                text_size: self.size
+
+            Widget:
+
+        # VOLVER
         Button:
-            text: "Volver"
+            text: "Cambiar tipo de consulta"
             size_hint_y: None
-            height: 50
-            on_release: root.manager.current = "abogados"
+            height: 46
+            font_size: 13
+            background_color: 0.04, 0.06, 0.22, 1
+            color: 0.70, 0.72, 0.85, 1
+            on_release: root.manager.current = "tipo"

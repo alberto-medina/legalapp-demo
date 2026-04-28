@@ -1,9 +1,9 @@
 import sqlite3
 import os
 
-# 🔥 RUTA FIJA Y ÚNICA
-DB_PATH = os.path.join(os.path.dirname(__file__), "legal_app.db")
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "legal_app.db")
 print("USANDO DB EN:", DB_PATH)
+
 
 def get_connection():
     return sqlite3.connect(DB_PATH)
@@ -11,10 +11,9 @@ def get_connection():
 
 def create_tables():
     conn = get_connection()
-    cursor = conn.cursor()
+    c = conn.cursor()
 
-    # 👤 USERS
-    cursor.execute("""
+    c.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT,
@@ -25,12 +24,11 @@ def create_tables():
         foto TEXT,
         matricula TEXT,
         experiencia TEXT,
-        descripcion TEXT
-    )
-    """)
+        descripcion TEXT,
+        estado_abogado TEXT DEFAULT 'disponible'
+    )""")
 
-    # 📄 CONSULTAS
-    cursor.execute("""
+    c.execute("""
     CREATE TABLE IF NOT EXISTS consultas (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_email TEXT,
@@ -38,19 +36,27 @@ def create_tables():
         estado TEXT,
         tipo_servicio TEXT,
         fecha TEXT
-    )
-    """)
+    )""")
 
-    # 💬 MENSAJES
-    cursor.execute("""
+    c.execute("""
     CREATE TABLE IF NOT EXISTS mensajes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         consulta_id INTEGER,
         emisor TEXT,
         mensaje TEXT,
         archivo TEXT
-    )
-    """)
+    )""")
+
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS resenas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        consulta_id INTEGER UNIQUE,
+        abogado_email TEXT,
+        cliente_email TEXT,
+        puntaje INTEGER,
+        comentario TEXT,
+        fecha TEXT
+    )""")
 
     conn.commit()
     conn.close()
@@ -58,16 +64,22 @@ def create_tables():
 
 def actualizar_db():
     conn = get_connection()
-    cursor = conn.cursor()
+    c = conn.cursor()
 
-    cursor.execute("PRAGMA table_info(mensajes)")
-    columnas = [col[1] for col in cursor.fetchall()]
+    c.execute("PRAGMA table_info(mensajes)")
+    if "archivo" not in [r[1] for r in c.fetchall()]:
+        c.execute("ALTER TABLE mensajes ADD COLUMN archivo TEXT")
 
-    if "archivo" not in columnas:
-        cursor.execute("ALTER TABLE mensajes ADD COLUMN archivo TEXT")
+    c.execute("PRAGMA table_info(users)")
+    cols = [r[1] for r in c.fetchall()]
+    if "estado_abogado" not in cols:
+        print("MIGRACION: agregando estado_abogado...")
+        c.execute("ALTER TABLE users ADD COLUMN estado_abogado TEXT DEFAULT 'disponible'")
+        c.execute("UPDATE users SET estado_abogado='disponible' WHERE estado_abogado IS NULL")
 
     conn.commit()
     conn.close()
+    print("DB OK")
 
 
 create_tables()

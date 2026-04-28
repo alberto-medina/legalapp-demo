@@ -10,7 +10,7 @@ class LoginScreen(Screen):
         email = self.ids.email.text.strip().lower()
         password = self.ids.password.text.strip()
 
-        # 🔥 HASH DE PASSWORD
+        #  HASH DE PASSWORD
         password_hash = hashlib.sha256(password.encode()).hexdigest()
 
         print("INTENTO LOGIN:", email, password)

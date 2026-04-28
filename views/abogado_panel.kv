@@ -2,92 +2,201 @@
 
     BoxLayout:
         orientation: "vertical"
-        padding: 15
-        spacing: 15
 
         canvas.before:
             Color:
-                rgba: 0.07, 0.07, 0.12, 1
+                rgba: 0.96, 0.97, 0.98, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
-        # HEADER
+        # TOPBAR
         BoxLayout:
             size_hint_y: None
-            height: 50
+            height: 60
+            padding: [16, 10, 16, 10]
+            canvas.before:
+                Color:
+                    rgba: 0.00, 0.04, 0.22, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
 
-            Label:
-                text: "Panel Abogado"
-                font_size: 20
-                bold: True
-                color: 1,1,1,1
-
-            Button:
-                text: "Perfil"
-                size_hint_x: 0.3
-                on_release: root.ir_perfil()
-
-            Button:
-                text: "Salir"
-                size_hint_x: 0.3
-                on_release: root.logout()
-
-        # CARDS
-        BoxLayout:
-            size_hint_y: None
-            height: 90
-            spacing: 10
-
-            # CONSULTAS
             BoxLayout:
                 orientation: "vertical"
-                padding: 10
+                Label:
+                    text: "LEGAL APP"
+                    font_size: 18
+                    bold: True
+                    color: 0.99, 0.84, 0.00, 1
+                    halign: "left"
+                    text_size: self.size
+                Label:
+                    text: "Panel Profesional"
+                    font_size: 10
+                    color: 0.70, 0.75, 0.90, 1
+                    halign: "left"
+                    text_size: self.size
+
+            BoxLayout:
+                orientation: "vertical"
+                Label:
+                    id: lbl_nombre_abogado
+                    text: ""
+                    font_size: 13
+                    bold: True
+                    color: 1, 1, 1, 1
+                    halign: "right"
+                    text_size: self.size
+                Label:
+                    text: "Abogado"
+                    font_size: 10
+                    color: 0.70, 0.75, 0.90, 1
+                    halign: "right"
+                    text_size: self.size
+
+        # BOTON ESTADO
+        Button:
+            id: btn_estado
+            text: "DISPONIBLE"
+            size_hint_y: None
+            height: 42
+            bold: True
+            font_size: 14
+            on_release: root.cambiar_estado()
+
+        # STATS
+        BoxLayout:
+            size_hint_y: None
+            height: 100
+            spacing: 12
+            padding: [16, 10, 16, 4]
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: [14, 10]
+                spacing: 2
                 canvas.before:
                     Color:
-                        rgba: 0.1, 0.1, 0.2, 1
+                        rgba: 1, 1, 1, 1
                     RoundedRectangle:
                         pos: self.pos
                         size: self.size
-                        radius: [15]
+                        radius: [14]
+                    Color:
+                        rgba: 0.88, 0.90, 0.93, 1
+                    Line:
+                        rounded_rectangle: [self.x+1, self.y+1, self.width-2, self.height-2, 14]
+                        width: 0.8
 
                 Label:
-                    text: "Consultas"
-                    color: 1,1,1,1
+                    text: "CONSULTAS"
+                    font_size: 10
+                    bold: True
+                    color: 0.45, 0.50, 0.60, 1
+                    halign: "center"
+                    text_size: self.size
 
                 Label:
                     id: lbl_consultas
                     text: "0"
-                    font_size: 20
-                    color: 0,1,1,1
+                    font_size: 30
+                    bold: True
+                    color: 0.00, 0.04, 0.22, 1
+                    halign: "center"
+                    text_size: self.size
 
-            # GANANCIA
             BoxLayout:
                 orientation: "vertical"
-                padding: 10
+                padding: [14, 10]
+                spacing: 2
                 canvas.before:
                     Color:
-                        rgba: 0.1, 0.1, 0.2, 1
+                        rgba: 1, 1, 1, 1
                     RoundedRectangle:
                         pos: self.pos
                         size: self.size
-                        radius: [15]
+                        radius: [14]
+                    Color:
+                        rgba: 0.88, 0.90, 0.93, 1
+                    Line:
+                        rounded_rectangle: [self.x+1, self.y+1, self.width-2, self.height-2, 14]
+                        width: 0.8
 
                 Label:
-                    text: "Ganancia"
-                    color: 1,1,1,1
+                    text: "HONORARIOS"
+                    font_size: 10
+                    bold: True
+                    color: 0.45, 0.50, 0.60, 1
+                    halign: "center"
+                    text_size: self.size
 
                 Label:
-                    id: lbl_ganancia
+                    id: lbl_honorarios
                     text: "$0"
-                    font_size: 20
-                    color: 0,1,0,1
+                    font_size: 22
+                    bold: True
+                    color: 0.10, 0.55, 0.28, 1
+                    halign: "center"
+                    text_size: self.size
+
+        # LABEL
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            padding: [16, 4]
+
+            Label:
+                text: "CONSULTAS RECIENTES"
+                font_size: 11
+                bold: True
+                color: 0.40, 0.45, 0.55, 1
+                halign: "left"
+                text_size: self.size
 
         # LISTA
         ScrollView:
             GridLayout:
                 id: lista_consultas
                 cols: 1
-                spacing: 10
+                spacing: 8
+                padding: [14, 0, 14, 70]
                 size_hint_y: None
                 height: self.minimum_height
+
+        # BOTTOM NAV
+        BoxLayout:
+            size_hint_y: None
+            height: 58
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                Color:
+                    rgba: 0.88, 0.89, 0.91, 1
+                Line:
+                    points: [self.x, self.top, self.right, self.top]
+                    width: 0.8
+
+            Button:
+                text: "Panel"
+                font_size: 11
+                bold: True
+                background_color: 0, 0, 0, 0
+                color: 0.00, 0.04, 0.22, 1
+
+            Button:
+                text: "Mi Perfil"
+                font_size: 11
+                background_color: 0, 0, 0, 0
+                color: 0.55, 0.58, 0.65, 1
+                on_release: root.ir_perfil()
+
+            Button:
+                text: "Salir"
+                font_size: 11
+                background_color: 0, 0, 0, 0
+                color: 0.75, 0.30, 0.30, 1
+                on_release: root.logout()

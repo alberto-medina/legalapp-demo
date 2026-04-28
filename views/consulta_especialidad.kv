@@ -1,129 +1,170 @@
 #:import ButtonBehavior kivy.uix.behaviors.ButtonBehavior
 
-<CustomCard@ButtonBehavior+BoxLayout>:
+<EspecialidadCard@ButtonBehavior+BoxLayout>:
     orientation: "horizontal"
     size_hint_y: None
-    height: 110
-    padding: 10
-    spacing: 10
-
+    height: 88
+    padding: [14, 12]
+    spacing: 14
     canvas.before:
         Color:
-            rgba: 0.15, 0.17, 0.25, 1
+            rgba: 1, 1, 1, 1
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [15]
+            radius: [14]
+        Color:
+            rgba: 0.88, 0.90, 0.93, 1
+        Line:
+            rounded_rectangle: [self.x+1, self.y+1, self.width-2, self.height-2, 14]
+            width: 0.8
 
 <ConsultaEspecialidadScreen>:
+
     BoxLayout:
         orientation: "vertical"
 
         canvas.before:
             Color:
-                rgba: 0.10, 0.12, 0.20, 1
+                rgba: 0.96, 0.97, 0.98, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
-        # HEADER
-        Label:
-            text: "Elegir especialidad"
+        BoxLayout:
             size_hint_y: None
-            height: 60
-            color: 1,1,1,1
-            bold: True
+            height: 58
+            padding: [12, 10, 16, 10]
+            canvas.before:
+                Color:
+                    rgba: 0.00, 0.04, 0.22, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: "<"
+                size_hint_x: None
+                width: 36
+                font_size: 22
+                bold: True
+                background_color: 0, 0, 0, 0
+                color: 0.99, 0.84, 0.00, 1
+                on_release: root.volver()
+
+            Label:
+                text: "AREA LEGAL"
+                font_size: 16
+                bold: True
+                color: 1, 1, 1, 1
+                halign: "left"
+                text_size: self.size
+
+        Label:
+            text: "Selecciona tu especialidad"
+            font_size: 13
+            color: 0.45, 0.50, 0.60, 1
+            size_hint_y: None
+            height: 34
+            halign: "center"
+            text_size: self.size
 
         ScrollView:
             BoxLayout:
                 orientation: "vertical"
-                padding: 15
-                spacing: 15
+                padding: [16, 8, 16, 16]
+                spacing: 12
                 size_hint_y: None
                 height: self.minimum_height
 
-                # 👨‍👩‍👧 FAMILIA
-                CustomCard:
+                EspecialidadCard:
                     on_release: root.seleccionar("Familiar")
-
-                    Image:
+                    AsyncImage:
                         source: "assets/familia.png"
-                        size_hint_x: 0.3
-
+                        size_hint_x: None
+                        width: 60
+                        allow_stretch: True
                     BoxLayout:
                         orientation: "vertical"
-
                         Label:
                             text: "Derecho Familiar"
-                            color: 1,1,1,1
                             bold: True
-
+                            font_size: 15
+                            color: 0.08, 0.12, 0.28, 1
+                            halign: "left"
+                            text_size: self.size
                         Label:
-                            text: "Divorcios, hijos, herencias"
-                            color: 0.7,0.7,0.7,1
+                            text: "Divorcios, custodia, herencias"
+                            font_size: 12
+                            color: 0.45, 0.50, 0.60, 1
+                            halign: "left"
+                            text_size: self.size
 
-                # 💼 LABORAL
-                CustomCard:
+                EspecialidadCard:
                     on_release: root.seleccionar("Laboral")
-
-                    Image:
+                    AsyncImage:
                         source: "assets/laboral.png"
-                        size_hint_x: 0.3
-
+                        size_hint_x: None
+                        width: 60
+                        allow_stretch: True
                     BoxLayout:
                         orientation: "vertical"
-
                         Label:
                             text: "Derecho Laboral"
-                            color: 1,1,1,1
                             bold: True
-
+                            font_size: 15
+                            color: 0.08, 0.12, 0.28, 1
+                            halign: "left"
+                            text_size: self.size
                         Label:
-                            text: "Despidos, contratos"
-                            color: 0.7,0.7,0.7,1
+                            text: "Despidos, contratos, ART"
+                            font_size: 12
+                            color: 0.45, 0.50, 0.60, 1
+                            halign: "left"
+                            text_size: self.size
 
-                # ⚖️ PENAL
-                CustomCard:
+                EspecialidadCard:
                     on_release: root.seleccionar("Penal")
-
-                    Image:
+                    AsyncImage:
                         source: "assets/penal.png"
-                        size_hint_x: 0.3
-
+                        size_hint_x: None
+                        width: 60
+                        allow_stretch: True
                     BoxLayout:
                         orientation: "vertical"
-
                         Label:
                             text: "Derecho Penal"
-                            color: 1,1,1,1
                             bold: True
-
+                            font_size: 15
+                            color: 0.08, 0.12, 0.28, 1
+                            halign: "left"
+                            text_size: self.size
                         Label:
-                            text: "Denuncias, defensa"
-                            color: 0.7,0.7,0.7,1
+                            text: "Denuncias, defensa, causas"
+                            font_size: 12
+                            color: 0.45, 0.50, 0.60, 1
+                            halign: "left"
+                            text_size: self.size
 
-                # 📄 CIVIL
-                CustomCard:
+                EspecialidadCard:
                     on_release: root.seleccionar("Civil")
-
-                    Image:
+                    AsyncImage:
                         source: "assets/civil.png"
-                        size_hint_x: 0.3
-
+                        size_hint_x: None
+                        width: 60
+                        allow_stretch: True
                     BoxLayout:
                         orientation: "vertical"
-
                         Label:
                             text: "Derecho Civil"
-                            color: 1,1,1,1
                             bold: True
-
+                            font_size: 15
+                            color: 0.08, 0.12, 0.28, 1
+                            halign: "left"
+                            text_size: self.size
                         Label:
-                            text: "Daños, contratos"
-                            color: 0.7,0.7,0.7,1
-
-        Button:
-            text: "Volver"
-            size_hint_y: None
-            height: 50
-            on_release: root.volver()
+                            text: "Danos, contratos, inmuebles"
+                            font_size: 12
+                            color: 0.45, 0.50, 0.60, 1
+                            halign: "left"
+                            text_size: self.size

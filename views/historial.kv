@@ -1,23 +1,87 @@
 <HistorialScreen>:
+
     BoxLayout:
         orientation: "vertical"
-        padding: 10
-        spacing: 10
 
-        Button:
-            text: "← Volver"
-            size_hint_y: None
-            height: 50
-            on_release: root.volver()
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.97, 0.98, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
-        Label:
-            text: "Historial"
+        BoxLayout:
             size_hint_y: None
-            height: 40
+            height: 58
+            padding: [12, 10, 16, 10]
+            canvas.before:
+                Color:
+                    rgba: 0.00, 0.04, 0.22, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: "<"
+                size_hint_x: None
+                width: 36
+                font_size: 22
+                bold: True
+                background_color: 0, 0, 0, 0
+                color: 0.99, 0.84, 0.00, 1
+                on_release: root.volver()
+
+            Label:
+                text: "MIS CONSULTAS"
+                font_size: 16
+                bold: True
+                color: 1, 1, 1, 1
+                halign: "left"
+                text_size: self.size
+
+        # FILTRO
+        BoxLayout:
+            size_hint_y: None
+            height: 46
+            padding: [16, 6, 16, 6]
+            spacing: 10
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                Color:
+                    rgba: 0.88, 0.90, 0.93, 1
+                Line:
+                    points: [self.x, self.y, self.right, self.y]
+                    width: 0.8
+
+            Label:
+                text: "Filtrar:"
+                size_hint_x: None
+                width: 50
+                font_size: 13
+                bold: True
+                color: 0.35, 0.40, 0.52, 1
+                halign: "left"
+                text_size: self.size
+
+            Spinner:
+                id: filtro_spinner
+                text: "Todos"
+                values: ["Todos", "pagado", "finalizado"]
+                size_hint_x: 0.50
+                font_size: 13
+                background_color: 0.92, 0.93, 0.95, 1
+                color: 0.10, 0.14, 0.28, 1
+                on_text: root.aplicar_filtro(self.text)
 
         ScrollView:
             BoxLayout:
                 id: lista
                 orientation: "vertical"
+                padding: [14, 10, 14, 80]
+                spacing: 10
                 size_hint_y: None
                 height: self.minimum_height
